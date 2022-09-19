@@ -2,10 +2,8 @@ package com.murilo.domain;
 
 public class Customer {
     private String name;
+    private Character sex;
 
-    public Customer(String name) {
-        this.name = name;
-    }
 
     public String getName() {
         return name;
@@ -13,5 +11,13 @@ public class Customer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Character getSex() {
+        return sex;
+    }
+
+    public void setSex(Character sex) {
+        this.sex = sex;
     }
 }
