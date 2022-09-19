@@ -1,4 +1,4 @@
-package contract;
+package br.com.murilo.customer.contract;
 
 import br.com.murilo.domain.Contract;
 import org.junit.Assert;

@@ -1,4 +1,4 @@
-package contract;
+package br.com.murilo.contract;
 
 import br.com.murilo.dao.IContractDAO;
 import br.com.murilo.dao.implement.ContractDAO;
@@ -14,7 +14,7 @@ public class ContractServiceTest {
     public void handleExceptionSaveContract() {
         IContractDAO contractDAO = new ContractDAO();
         ContractService contractService = new ContractService(contractDAO);
-        Exception exception = Assert.assertThrows(UnsupportedOperationException.class, () -> contractService.save());
+        Exception exception = Assert.assertThrows(UnsupportedOperationException.class, contractService::save);
 
         String actualMessage = exception.getMessage();
         Assert.assertTrue(actualMessage.contains(MESSAGE));
