@@ -1,4 +1,5 @@
 package br.com.murilo.usecases;
+import br.com.murilo.exceptions.CustomerNotFoundException;
 import br.com.murilo.repository.ICustomerRepository;
 
 public class DeleteCustomerUseCase {
@@ -8,7 +9,7 @@ public class DeleteCustomerUseCase {
         this.customerRepository = customerRepository;
     }
 
-    public void handle(Long cpf) {
+    public void handle(Long cpf) throws CustomerNotFoundException {
         FindCustomerUseCase findCustomerUseCase = new FindCustomerUseCase(customerRepository);
         customerRepository.delete(findCustomerUseCase.handle(cpf).getCpf());
     }

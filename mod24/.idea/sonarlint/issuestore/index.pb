@@ -21,3 +21,11 @@ W
 0src/br/com/murilo/service/IContractsService.java,5\e\5e0d0ae0deef9a3a4250a623e875c8cb7b12ff88
 `
 0src/br/com/murilo/dao/implement/ContractDAO.java,6\6\6693e2cbdabf770b1fd750fc5b4e09aab160abf4
+b
+2test/br/com/murilo/contract/ContractSuiteTest.java,2\a\2a457566461d3bc22d91daf69a36bf7897c2512b
+]
+-test/br/com/murilo/customer/CustomerTest.java,c\4\c4f2ab57e08a5ca6f2407f8713976d39fb315f23
+b
+2test/br/com/murilo/customer/CustomerSuiteTest.java,a\5\a5b5ef366b5a038e9fa200644a9f450edafe1a7a
+d
+4test/br/com/murilo/contract/ContractServiceTest.java,4\5\45f7a2c5e0da0a2b9930aa14a32cce3de6c2f2de

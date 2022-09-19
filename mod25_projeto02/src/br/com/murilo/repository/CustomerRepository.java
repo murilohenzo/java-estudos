@@ -2,31 +2,42 @@ package br.com.murilo.repository;
 
 import br.com.murilo.domain.Customer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class CustomerRepository implements ICustomerRepository{
-    private final Map<Integer, Customer> customers = new HashMap<>();
+    private final Map<Long, Customer> customers = new HashMap<>();
+
+    @Override
+    public Collection<Customer> findAll() {
+        return this.customers.values();
+    }
 
     @Override
     public Customer save(Customer customer) {
-        int id = this.customers.size() + 1;
-
-        this.customers.put(id, customer);
+        this.customers.put(customer.getCpf(), customer);
         return customer;
     }
 
     @Override
     public Optional<Customer> find(long cpf) {
-        return Optional.ofNullable(this.customers.values()
+        return this.customers.values()
                 .stream().filter(customer -> Objects.equals(cpf, customer.getCpf()))
-                .findAny().orElse(null));
+                .findAny();
     }
 
     @Override
-    public Customer delete(long cpf) {
-        return null;
+    public void delete(long cpf) {
+        this.customers.remove(cpf);
     }
+
+    @Override
+    public void update(Customer existsCustomer, Customer customer) {
+            existsCustomer.setName(customer.getName());
+            existsCustomer.setCpf(customer.getCpf());
+            existsCustomer.setPhoneNumber(customer.getPhoneNumber());
+            existsCustomer.setAddress(customer.getAddress());
+            existsCustomer.setNumber(customer.getNumber());
+            existsCustomer.setCity(customer.getCity());
+            existsCustomer.setState(customer.getState());
+        }
 }

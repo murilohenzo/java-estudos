@@ -12,7 +12,7 @@ public class CreateCustomerUseCase {
     }
 
     public Customer handle(Customer customer) throws CustomerAlreadyExistsException {
-        if (this.iCustomerRepository.find(customer.getCpf()) == null) {
+        if (this.iCustomerRepository.find(customer.getCpf()).isEmpty()) {
             this.iCustomerRepository.save(customer);
             return customer;
         } else {
