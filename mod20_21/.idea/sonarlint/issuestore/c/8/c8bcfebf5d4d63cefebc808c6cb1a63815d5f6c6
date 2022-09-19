@@ -1,0 +1,40 @@
+
+f	java:S117'"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÃŞ
+]
+java:S1854."BRemove this useless assignment to local variable "doubleCallable".(¢›ûüÿÿÿÿ
+Y
+java:S1854-"CRemove this useless assignment to local variable "integerCallable".(Ò’æ
+U
+java:S1854'"?Remove this useless assignment to local variable "hello_world".(ıÃŞ
+i
+java:S1602"SRemove useless curly braces around statement and then remove useless return keyword(ìÓùÁ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(›êŞÂúÿÿÿÿ
+s
+java:S4276"]Refactor this code to use the more specialised Functional Interface 'BinaryOperator<Integer>'(œÙ¯
+i
+java:S1602"SRemove useless curly braces around statement and then remove useless return keyword(œÙ¯
+N	java:S106"9Replace this use of System.out or System.err by a logger.(Á™…Ò
+S	java:S106 "9Replace this use of System.out or System.err by a logger.(¥Åôüÿÿÿÿ
+i
+java:S1602""SRemove useless curly braces around statement and then remove useless return keyword(·°°
+S	java:S106%"9Replace this use of System.out or System.err by a logger.(¹¨³ ıÿÿÿÿ
+N	java:S106'"9Replace this use of System.out or System.err by a logger.(ıÃŞ
+F
+java:S1481'"0Remove this unused "hello_world" local variable.(ıÃŞ
+G
+java:S1602(",Remove useless curly braces around statement(†½®£øÿÿÿÿ
+[
+java:S1612("@Replace this lambda with method reference 'System.out::println'.(†½®£øÿÿÿÿ
+S	java:S106)"9Replace this use of System.out or System.err by a logger.(Å­Ëİúÿÿÿÿ
+g
+java:S4276-"QRefactor this code to use the more specialised Functional Interface 'IntSupplier'(Ò’æ
+J
+java:S1481-"4Remove this unused "integerCallable" local variable.(Ò’æ
+o
+java:S4276."TRefactor this code to use the more specialised Functional Interface 'DoubleSupplier'(¢›ûüÿÿÿÿ
+n
+java:S1602."SRemove useless curly braces around statement and then remove useless return keyword(¢›ûüÿÿÿÿ
+N
+java:S1481."3Remove this unused "doubleCallable" local variable.(¢›ûüÿÿÿÿ
+p
+java:S42765"ZRefactor this code to use the more specialised Functional Interface 'BinaryOperator<Long>'(¼ïåã

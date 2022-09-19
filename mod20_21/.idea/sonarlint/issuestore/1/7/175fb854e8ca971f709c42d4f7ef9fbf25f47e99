@@ -1,0 +1,37 @@
+
+S
+java:S1854"8Remove this useless assignment to local variable "retS".(ö•Ï÷ùÿÿÿÿ
+Q
+java:S1854"<Remove this useless assignment to local variable "myEvent3".(ÉÅ³=
+W
+java:S1854
+"<Remove this useless assignment to local variable "myEvent1".(”ìâðúÿÿÿÿ
+Q
+java:S1854";Remove this useless assignment to local variable "myEvent".(ðÇíÚ
+B
+java:S1602",Remove useless curly braces around statement(ðÇíÚ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+B
+java:S1481",Remove this unused "myEvent" local variable.(ðÇíÚ
+J
+java:S1611
+"/Remove the parentheses around the "s" parameter(”ìâðúÿÿÿÿ
+G
+java:S1602
+",Remove useless curly braces around statement(”ìâðúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+H
+java:S1481
+"-Remove this unused "myEvent1" local variable.(”ìâðúÿÿÿÿ
+N	java:S106"9Replace this use of System.out or System.err by a logger.(Å§¹ë
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+B
+java:S1481"-Remove this unused "myEvent3" local variable.(ÉÅ³=
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(Å­ËÝúÿÿÿÿ
+D
+java:S1481")Remove this unused "retS" local variable.(ö•Ï÷ùÿÿÿÿ
+S	java:S106)"9Replace this use of System.out or System.err by a logger.(‚é€Þûÿÿÿÿ

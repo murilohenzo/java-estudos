@@ -1,0 +1,28 @@
+
+Q
+java:S3740
+"/Provide the parametrized type for this generic.(ÌØÈºûÿÿÿÿ8“ÆÊ²0
+Q
+java:S3740"/Provide the parametrized type for this generic.(¶Ì’áúÿÿÿÿ8Ÿ“ÆÊ²0
+Q
+java:S3740"/Provide the parametrized type for this generic.(şîåøøÿÿÿÿ8…âÇÊ²0
+Q
+java:S3740*"/Provide the parametrized type for this generic.(û£Ïüÿÿÿÿ8Ÿ“ÆÊ²0
+m	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾©¸Î8 “ÆÊ²0
+L
+java:S1197	"*Move the array designators [] to the type.(¡şÏÖøÿÿÿÿ8—•ÆÊ²0
+U	java:S106"9Replace this use of System.out or System.err by a logger.(´áîŞ8™•ÆÊ²0
+]
+java:S2133"ARemove this object instantiation and use "Product.class" instead.(ª“Š	8ÂĞĞÊ²0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(©–áüÿÿÿÿ8›•ÆÊ²0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(Š®üÿÿÿÿ8•ÆÊ²0
+U	java:S106"9Replace this use of System.out or System.err by a logger.(şĞËß8•ÆÊ²0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ŒÎ¬Àÿÿÿÿÿ8Ÿ•ÆÊ²0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(¹ß€ïúÿÿÿÿ8 •ÆÊ²0
+Z	java:S106#"9Replace this use of System.out or System.err by a logger.(ŒÎ¬Àÿÿÿÿÿ8¡•ÆÊ²0
+Z	java:S106$"9Replace this use of System.out or System.err by a logger.(¹ß€ïúÿÿÿÿ8¡•ÆÊ²0
+U	java:S106&"9Replace this use of System.out or System.err by a logger.(ÈôªÀ8¡•ÆÊ²0
+U	java:S106("9Replace this use of System.out or System.err by a logger.(‰½şğ8£•ÆÊ²0
+U	java:S106,"9Replace this use of System.out or System.err by a logger.(ùÌÀô8¤•ÆÊ²0
+Z	java:S106."9Replace this use of System.out or System.err by a logger.(à´î·şÿÿÿÿ8¥•ÆÊ²0
+Z	java:S1060"9Replace this use of System.out or System.err by a logger.(¦Œùæıÿÿÿÿ8¥•ÆÊ²0

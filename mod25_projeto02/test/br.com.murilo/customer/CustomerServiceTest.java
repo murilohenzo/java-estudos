@@ -7,19 +7,20 @@ import br.com.murilo.repository.CustomerRepository;
 import br.com.murilo.repository.ICustomerRepository;
 import br.com.murilo.usecases.CreateCustomerUseCase;
 import br.com.murilo.usecases.FindCustomerUseCase;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class CustomerServiceTest {
+    Customer customer;
+    ICustomerRepository repository = new CustomerRepository();
 
-    @Test
-    public void whenNewCustomerInformedThenShouldBeCreated() throws CustomerAlreadyExistsException {
-
-        ICustomerRepository repository = new CustomerRepository();
+    @Before
+    public void init() throws CustomerAlreadyExistsException {
         CreateCustomerUseCase useCase = new CreateCustomerUseCase(repository);
 
-        Customer customer = useCase.handle(new Customer(
+        customer = useCase.handle(new Customer(
                 "Murilo",
                 12345678910L,
                 102030L,
@@ -28,26 +29,17 @@ public class CustomerServiceTest {
                 "Fortaleza",
                 "CE"
         ));
+    }
 
+    @Test
+    public void whenNewCustomerInformedThenShouldBeCreated() {
         assertEquals("Murilo", customer.getName());
         assertEquals("Fortaleza", customer.getCity());
     }
 
     @Test
-    public void whenExistingCustomerIsInformedThenAnExceptionShouldBeThrown() throws CustomerAlreadyExistsException {
-
-        ICustomerRepository repository = new CustomerRepository();
+    public void whenExistingCustomerIsInformedThenAnExceptionShouldBeThrown() {
         CreateCustomerUseCase useCase = new CreateCustomerUseCase(repository);
-
-        useCase.handle(new Customer(
-                "Murilo",
-                12345678910L,
-                102030L,
-                "End",
-                12345,
-                "Fortaleza",
-                "CE"
-        ));
 
         assertThrows(CustomerAlreadyExistsException.class, () -> useCase.handle(
                 new Customer(
@@ -63,22 +55,8 @@ public class CustomerServiceTest {
     }
 
     @Test
-    public void whenValidCpfIsGivenThenAnAuthorShouldBeReturned() throws CustomerNotFoundException, CustomerAlreadyExistsException {
-        Customer customer = new Customer(
-                "Murilo",
-                12345678910L,
-                102030L,
-                "End",
-                12345,
-                "Fortaleza",
-                "CE"
-        );
-
-        ICustomerRepository repository = new CustomerRepository();
-        CreateCustomerUseCase createCustomerUseCase = new CreateCustomerUseCase(repository);
+    public void whenValidCpfIsGivenThenAnAuthorShouldBeReturned() {
         FindCustomerUseCase findCustomerUseCase = new FindCustomerUseCase(repository);
-
-        createCustomerUseCase.handle(customer);
         assertEquals(customer, findCustomerUseCase.handle(12345678910L));
     }
 

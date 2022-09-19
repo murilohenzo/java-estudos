@@ -11,15 +11,14 @@ public class FindCustomerUseCase {
         this.iCustomerRepository = iCustomerRepository;
     }
 
-    public Customer handle(long cpf) throws CustomerNotFoundException {
-        Customer existsCustomer = this.iCustomerRepository.find(cpf);
-        try {
-            if (existsCustomer != null) {
-                return existsCustomer;
-            }
-            throw new CustomerNotFoundException("Customer not found in database");
-        } catch (CustomerNotFoundException e) {
-            throw new CustomerNotFoundException("Customer not found in database");
-        }
+    public Customer handle(long cpf) {
+            return this.iCustomerRepository.find(cpf).orElseThrow(() -> {
+                        try {
+                            throw new CustomerNotFoundException("Customer not found in database");
+                        } catch (CustomerNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            );
     }
 }
