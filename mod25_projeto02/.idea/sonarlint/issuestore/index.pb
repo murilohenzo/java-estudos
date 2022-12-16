@@ -9,3 +9,13 @@ k
 ;src/br/com/murilo/exceptions/CustomerNotFoundException.java,7\f\7fca153dad577368d7e7495e0d490fd646c808f8
 p
 @src/br/com/murilo/exceptions/CustomerAlreadyExistsException.java,e\b\ebdff26dc798062fe223137ef02b1a3ee14b6594
+I
+.github/workflows/ci.yaml,a\9\a91b1970808e533a5de67f93824231e12770a765
+q
+Asrc/br/com/murilo/exceptions/TipoChaveNaoEncontradaException.java,3\7\3715ffc16aac659b6366305be6753c6a9ad3954a
+e
+5src/br/com/murilo/repository/ICustomerRepository.java,7\d\7d032cb956035694b5924567e3570fc6dcabccdc
+d
+4src/br/com/murilo/repository/CustomerRepository.java,a\2\a2ed860a90923fbd0a7f7c1a32b85c0c0343f133
+e
+5src/br/com/murilo/usecases/CreateCustomerUseCase.java,0\7\0700e9993bf6664cc1e282c884b6e03dadfe239a
