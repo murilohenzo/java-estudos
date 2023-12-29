@@ -1,4 +1,4 @@
-# Repositorio de codigos do curso de Java.
+# Repositorio de codigos de Java.
 
 - Mod 11/12 (Coleções)
 - Mod 13 (Interfaces, heranças, composição e agregação)
