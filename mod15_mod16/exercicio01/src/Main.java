@@ -1,5 +1,5 @@
-import domain.enums.CarType;
-import domain.enums.Location;
+import exemplo01.domain.enums.CarType;
+import exemplo01.domain.enums.Location;
 import factories.CarFactory;
 
 public class Main {

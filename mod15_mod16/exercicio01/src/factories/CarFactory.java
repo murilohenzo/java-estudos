@@ -1,8 +1,8 @@
 package factories;
 
-import domain.Car;
-import domain.enums.CarType;
-import domain.enums.Location;
+import exemplo01.domain.Car;
+import exemplo01.domain.enums.CarType;
+import exemplo01.domain.enums.Location;
 
 public class CarFactory {
     private CarFactory() {}

@@ -2,8 +2,14 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/behavioral/ChainOfResponsabilityWithStrategy/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/creational/Prototype/src" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="b23298b4-15f5-43cc-bdeb-ebbd2cc03ad0" />
   </component>
 </module>

@@ -2,14 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AbstractFactory/AbstractFactory.iml" filepath="$PROJECT_DIR$/AbstractFactory/AbstractFactory.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Adapter/Adapter.iml" filepath="$PROJECT_DIR$/Adapter/Adapter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Builder/Builder.iml" filepath="$PROJECT_DIR$/Builder/Builder.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Facade/Facade.iml" filepath="$PROJECT_DIR$/Facade/Facade.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FactoryMethod/FactoryMethod.iml" filepath="$PROJECT_DIR$/FactoryMethod/FactoryMethod.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Observer/Observer.iml" filepath="$PROJECT_DIR$/Observer/Observer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Singleton/Singleton.iml" filepath="$PROJECT_DIR$/Singleton/Singleton.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TemplateMethod/TemplateMethod.iml" filepath="$PROJECT_DIR$/TemplateMethod/TemplateMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/creational/AbstractFactory/AbstractFactory.iml" filepath="$PROJECT_DIR$/creational/AbstractFactory/AbstractFactory.iml" />
+      <module fileurl="file://$PROJECT_DIR$/structural/Adapter/Adapter.iml" filepath="$PROJECT_DIR$/structural/Adapter/Adapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/creational/Builder/Builder.iml" filepath="$PROJECT_DIR$/creational/Builder/Builder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/structural/Facade/Facade.iml" filepath="$PROJECT_DIR$/structural/Facade/Facade.iml" />
+      <module fileurl="file://$PROJECT_DIR$/creational/FactoryMethod/FactoryMethod.iml" filepath="$PROJECT_DIR$/creational/FactoryMethod/FactoryMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/behavioral/Observer/Observer.iml" filepath="$PROJECT_DIR$/behavioral/Observer/Observer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/creational/Singleton/Singleton.iml" filepath="$PROJECT_DIR$/creational/Singleton/Singleton.iml" />
+      <module fileurl="file://$PROJECT_DIR$/behavioral/TemplateMethod/TemplateMethod.iml" filepath="$PROJECT_DIR$/behavioral/TemplateMethod/TemplateMethod.iml" />
       <module fileurl="file://$PROJECT_DIR$/exercicio01/exercicio01.iml" filepath="$PROJECT_DIR$/exercicio01/exercicio01.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/padroes-de-projeto.iml" filepath="$PROJECT_DIR$/.idea/padroes-de-projeto.iml" />
     </modules>

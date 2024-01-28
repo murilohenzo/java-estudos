@@ -1,0 +1,10 @@
+
+T
+java:S5993 "9Change the visibility of this constructor to "protected".(ˆ§¶úÿÿÿÿ
+Q	java:S125"<This block of commented-out lines of code should be removed.(Ä˜­¯
+E	java:S1068"+Replace this use of System.out by a logger.(ß«Õ”øÿÿÿÿ
+V	java:S125@"<This block of commented-out lines of code should be removed.(–ÿï­ùÿÿÿÿ
+V	java:S125V"<This block of commented-out lines of code should be removed.(–ÿï­ùÿÿÿÿ
+L
+java:S2175Z"1A "Map<E, T>" cannot contain a "T" in a "T" type.(ªÃûìúÿÿÿÿ
+V	java:S125j"<This block of commented-out lines of code should be removed.(–ÿï­ùÿÿÿÿ

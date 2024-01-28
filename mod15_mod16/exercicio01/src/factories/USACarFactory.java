@@ -1,12 +1,12 @@
 package factories;
 
-import domain.Car;
-import domain.LuxuryCar;
-import domain.SedanCar;
-import domain.SmallCar;
-import domain.enums.CarType;
-import domain.enums.Color;
-import domain.enums.Location;
+import exemplo01.domain.Car;
+import exemplo01.domain.LuxuryCar;
+import exemplo01.domain.SedanCar;
+import exemplo01.domain.SmallCar;
+import exemplo01.domain.enums.CarType;
+import exemplo01.domain.enums.Color;
+import exemplo01.domain.enums.Location;
 
 public class USACarFactory {
     public static Car buildCar(CarType type) {

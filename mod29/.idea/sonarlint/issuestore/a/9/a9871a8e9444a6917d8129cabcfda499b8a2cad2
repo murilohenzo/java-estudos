@@ -1,0 +1,10 @@
+
+g	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ÿÑÄ°Ë1
+S
+java:S1172"1Remove this unused method parameter "connection".(Ú’Ê¹ÿÿÿÿÿ8ÿÑÄ°Ë1
+i
+java:S1871"LThis branch's code block is the same as the block for the branch on line 16.( ‹™8ÒÄ°Ë1
+S
+java:S6437"6Revoke and change this password, as it is compromised.(Ë¯¡à8®÷Æ°Ë1
+]
+java:S1144";Remove this unused private "ConnectionFactory" constructor.(Ú’Ê¹ÿÿÿÿÿ8ÒÄ°Ë1
