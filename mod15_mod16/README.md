@@ -36,7 +36,7 @@ Os padrões comportamentais se concentram nas responsabilidades e interações e
 - Template Method Pattern
 - Strategy Pattern
 
-**Leia mais sobre os Padrões Comportamentais [aqui](/behavioral/README.md).**
+**Leia mais sobre os Padrões Comportamentais [aqui](./behavioral/README.md).**
 
 Este repositório inclui informações detalhadas sobre cada um desses padrões, destacando quando e onde utilizá-los, suas vantagens e desvantagens. Consulte os READMEs específicos para obter mais informações sobre cada categoria de padrões.
 
