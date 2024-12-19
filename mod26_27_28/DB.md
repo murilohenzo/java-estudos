@@ -66,7 +66,9 @@ SQL (*Structured Query Language*) é a linguagem padrão para gerenciamento de b
 
 ## **2. Funções em SQL**
 
-### **2.1 Funções de Agregação**
+### **2.1 Funções Agregadas**
+
+Funções agregadas realizam operações em um conjunto de valores e retornam um único valor resumido.
 
 | **Função**     | **Descrição**                       | **Exemplo**                                                | **Resultado** |
 |-----------------|-------------------------------------|------------------------------------------------------------|---------------|
@@ -92,6 +94,64 @@ SQL (*Structured Query Language*) é a linguagem padrão para gerenciamento de b
   GROUP BY categoria;
   ```
 
+---
+
+### **2.2 Funções Escalares**
+
+Funções escalares realizam operações em cada linha individualmente e retornam um valor para cada linha.
+
+| **Função**         | **Descrição**                              | **Exemplo**                                                  | **Resultado**                              |
+|---------------------|--------------------------------------------|--------------------------------------------------------------|--------------------------------------------|
+| `UPPER()`           | Converte texto para maiúsculas.           | `SELECT UPPER(nome) FROM clientes;`                         | `"JOÃO"`                                   |
+| `LOWER()`           | Converte texto para minúsculas.           | `SELECT LOWER(nome) FROM clientes;`                         | `"joão"`                                   |
+| `SUBSTR()`          | Retorna parte de uma string.              | `SELECT SUBSTR(nome, 1, 3) FROM clientes;`                  | `"Joã"`                                   |
+| `LENGTH()`          | Retorna o tamanho da string.              | `SELECT LENGTH(nome) FROM clientes;`                        | `4`                                        |
+| `TRIM()`            | Remove espaços em branco.                 | `SELECT TRIM(' João ') FROM clientes;`                      | `"João"`                                   |
+| `REPLACE()`         | Substitui parte da string por outra.       | `SELECT REPLACE(nome, 'João', 'José') FROM clientes;`       | `"José"`                                   |
+| `ROUND()`           | Arredonda um número para um determinado número de casas decimais. | `SELECT ROUND(salario, 2) FROM funcionarios;` | `1234.57` |
+| `ABS()`             | Retorna o valor absoluto de um número.   | `SELECT ABS(-10) AS positivo;`                              | `10`                                       |
+
+**Exemplos Práticos**
+
+- **Formatando Nomes:**
+  ```sql
+  SELECT UPPER(nome) AS nome_maiusculo
+  FROM clientes;
+  ```
+
+- **Arredondando Valores:**
+  ```sql
+  SELECT ROUND(preco, 1) AS preco_arredondado
+  FROM produtos;
+  ```
+
+---
+
+### **2.3 Funções de Manipulação de Datas**
+
+| **Função**           | **Descrição**                                 | **Exemplo**                                                                 | **Resultado**                         |
+|-----------------------|-----------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------|
+| `NOW()`              | Retorna a data e hora atuais.                | `SELECT NOW();`                                                            | `2024-12-19 14:35:00`                |
+| `DATE()`             | Retorna apenas a data.                       | `SELECT DATE('2024-12-25 14:35:00');`                                      | `2024-12-25`                         |
+| `STRFTIME()`         | Formata uma data para um formato específico. | `SELECT STRFTIME('%d/%m/%Y', '2024-12-25');`                               | `25/12/2024`                         |
+| `YEAR()`             | Retorna o ano de uma data.                   | `SELECT STRFTIME('%Y', '2024-12-25');`                                     | `2024`                                |
+| `MONTH()`            | Retorna o mês de uma data.                   | `SELECT STRFTIME('%m', '2024-12-25');`                                     | `12`                                  |
+| `DAY()`              | Retorna o dia de uma data.                   | `SELECT STRFTIME('%d', '2024-12-25');`                                     | `25`                                  |
+| `DATEDIFF()`         | Calcula a diferença entre duas datas.        | `SELECT JULIANDAY('2024-12-25') - JULIANDAY('2024-12-20');`                | `5`                                   |
+
+**Exemplos Práticos**
+
+- **Formatando Datas:**
+  ```sql
+  SELECT STRFTIME('%d/%m/%Y', data_pedido) AS data_formatada
+  FROM pedidos;
+  ```
+
+- **Calculando Dias Restantes para Entrega:**
+  ```sql
+  SELECT pedido_id, JULIANDAY(data_entrega) - JULIANDAY(NOW()) AS dias_restantes
+  FROM pedidos;
+  ```
 ---
 
 ## **3. Joins em SQL**
