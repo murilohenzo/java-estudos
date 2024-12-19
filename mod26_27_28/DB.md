@@ -314,20 +314,26 @@ SELECT nome, cidade FROM clientes_b;
 
 ## **9. Boas Práticas para Performance em SQL**
 
-1. **Utilize índices**:
-   - Crie índices em colunas frequentemente usadas em `WHERE`, `JOIN` e `ORDER BY`.
-
-2. **Evite `SELECT *`**:
+1. **Utilize índices:**
+   - Crie índices em colunas frequentemente usadas em WHERE, JOIN e ORDER BY.
+   
+2. **Evite operações em larga escala como SELECT * e ORDER BY:**
    - Selecione apenas as colunas necessárias para reduzir o consumo de recursos.
 
-3. **Normalize os Dados**:
-   - Reduza a redundância, mas mantenha um equilíbrio para evitar joins excessivos.
+3.**Normalize os Dados:**
+  - Reduza a redundância, mas mantenha um equilíbrio para evitar joins excessivos.
 
-4. **Use Particionamento**:
-   - Divida tabelas grandes em partes menores para melhorar o desempenho.
+4. **Use Particionamento:**
+  - Divida tabelas grandes em partes menores para melhorar o desempenho.
 
-5. **Analise os Planos de Execução**:
-   - Use comandos como `EXPLAIN` para identificar gargalos em consultas.
+5. **Analise os Planos de Execução:**
+  - Use comandos como EXPLAIN para identificar gargalos em consultas.
+
+6. **Utilize o cache de Consultas:**
+  - Configure mecanismos de cache para armazenar resultados de consultas frequentes.
+
+7. **Otimize consultas com funções agregadas:**
+  - Utilize índices adequados nas colunas que participam de agregações.
 
 ---
 
