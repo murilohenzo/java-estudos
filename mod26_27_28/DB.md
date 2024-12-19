@@ -320,7 +320,7 @@ SELECT nome, cidade FROM clientes_b;
 2. **Evite operações em larga escala como SELECT * e ORDER BY:**
    - Selecione apenas as colunas necessárias para reduzir o consumo de recursos.
 
-3.**Normalize os Dados:**
+3. **Normalize os Dados:**
   - Reduza a redundância, mas mantenha um equilíbrio para evitar joins excessivos.
 
 4. **Use Particionamento:**
