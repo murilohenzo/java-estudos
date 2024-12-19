@@ -94,149 +94,204 @@ SQL (*Structured Query Language*) é a linguagem padrão para gerenciamento de b
 
 ---
 
-### **2.2 Funções de Manipulação de Strings**
+## **3. Joins em SQL**
 
-| **Função**         | **Descrição**                              | **Exemplo**                                                  | **Resultado**                              |
-|---------------------|--------------------------------------------|--------------------------------------------------------------|--------------------------------------------|
-| `UPPER()`           | Converte texto para maiúsculas.           | `SELECT UPPER(nome) FROM clientes;`                         | `"JOÃO"`                                   |
-| `LOWER()`           | Converte texto para minúsculas.           | `SELECT LOWER(nome) FROM clientes;`                         | `"joão"`                                   |
-| `SUBSTR()`          | Retorna parte de uma string.              | `SELECT SUBSTR(nome, 1, 3) FROM clientes;`                  | `"Joã"`                                   |
-| `LENGTH()`          | Retorna o tamanho da string.              | `SELECT LENGTH(nome) FROM clientes;`                        | `4`                                        |
-| `TRIM()`            | Remove espaços em branco.                 | `SELECT TRIM(' João ') FROM clientes;`                      | `"João"`                                   |
-| `REPLACE()`         | Substitui parte da string por outra.       | `SELECT REPLACE(nome, 'João', 'José') FROM clientes;`       | `"José"`                                   |
+### **3.1 Tipos de Joins**
 
-**Exemplos Práticos**
+| **Tipo de Join**    | **Descrição**                                                                 | **Exemplo**                                                                 |
+|---------------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| `INNER JOIN`        | Retorna registros que têm correspondência em ambas as tabelas.                     | `SELECT * FROM alunos INNER JOIN cursos ON alunos.curso_id = cursos.id;`   |
+| `LEFT JOIN`         | Retorna todos os registros da tabela à esquerda e os correspondentes da direita.   | `SELECT * FROM alunos LEFT JOIN notas ON alunos.id = notas.aluno_id;`      |
+| `RIGHT JOIN`        | Retorna todos os registros da tabela à direita e os correspondentes da esquerda.   | `SELECT * FROM notas RIGHT JOIN alunos ON notas.aluno_id = alunos.id;`     |
+| `FULL OUTER JOIN`   | Retorna todos os registros quando há correspondência em qualquer tabela.            | `SELECT * FROM alunos FULL OUTER JOIN cursos ON alunos.curso_id = cursos.id;` |
 
-- **Formatando Nomes:**
+**Exemplo Prático de Joins**
+
+- **Consulta de Alunos e Notas:**
   ```sql
-  SELECT UPPER(nome) AS nome_maiusculo
-  FROM clientes;
-  ```
-
-- **Extraindo Parte de um Texto:**
-  ```sql
-  SELECT SUBSTR(descricao, 1, 50) AS resumo
-  FROM artigos;
-  ```
-
----
-
-### **2.3 Funções de Manipulação de Datas**
-
-| **Função**           | **Descrição**                                 | **Exemplo**                                                                 | **Resultado**                         |
-|-----------------------|-----------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------|
-| `NOW()`              | Retorna a data e hora atuais.                | `SELECT NOW();`                                                            | `2024-12-19 14:35:00`                |
-| `DATE()`             | Retorna apenas a data.                       | `SELECT DATE('2024-12-25 14:35:00');`                                      | `2024-12-25`                         |
-| `STRFTIME()`         | Formata uma data para um formato específico. | `SELECT STRFTIME('%d/%m/%Y', '2024-12-25');`                               | `25/12/2024`                         |
-| `YEAR()`             | Retorna o ano de uma data.                   | `SELECT STRFTIME('%Y', '2024-12-25');`                                     | `2024`                                |
-| `MONTH()`            | Retorna o mês de uma data.                   | `SELECT STRFTIME('%m', '2024-12-25');`                                     | `12`                                  |
-| `DAY()`              | Retorna o dia de uma data.                   | `SELECT STRFTIME('%d', '2024-12-25');`                                     | `25`                                  |
-| `DATEDIFF()`         | Calcula a diferença entre duas datas.        | `SELECT JULIANDAY('2024-12-25') - JULIANDAY('2024-12-20');`                | `5`                                   |
-
-**Exemplos Práticos**
-
-- **Formatando Datas:**
-  ```sql
-  SELECT STRFTIME('%d/%m/%Y', data_pedido) AS data_formatada
-  FROM pedidos;
-  ```
-
-- **Calculando Dias Restantes para Entrega:**
-  ```sql
-  SELECT pedido_id, JULIANDAY(data_entrega) - JULIANDAY(NOW()) AS dias_restantes
-  FROM pedidos;
-  ```
-
----
-
-## **3. Cláusula `HAVING`**
-
-A cláusula `HAVING` é utilizada para filtrar os resultados de consultas agrupadas (`GROUP BY`). Ela é aplicada **após o agrupamento** e permite o uso de funções de agregação.
-
-### **Sintaxe do `HAVING`**
-
-```sql
-SELECT coluna1, coluna2, AGREGACAO(funcao_coluna)
-FROM tabela
-GROUP BY coluna1, coluna2
-HAVING condicao_agregada;
-```
-
-### **Diferença entre `WHERE` e `HAVING`**
-
-| **Aspecto**        | **`WHERE`**                                               | **`HAVING`**                                               |
-|---------------------|----------------------------------------------------------|-----------------------------------------------------------|
-| **Quando é usado**  | Antes do agrupamento.                                     | Depois do agrupamento.                                     |
-| **Base da condição**| Colunas individuais ou expressões.                        | Funções de agregação ou colunas agregadas.                 |
-| **Exemplo**         | `WHERE idade > 18`                                       | `HAVING AVG(salario) > 5000`                              |
-
-**Exemplos Práticos**
-
-- **Filtrando Grupos com Média Maior que um Valor:**
-  ```sql
-  SELECT departamento, AVG(salario) AS media_salarial
-  FROM funcionarios
-  GROUP BY departamento
-  HAVING AVG(salario) > 5000;
-  ```
-
-- **Contando e Filtrando Grupos:**
-  ```sql
-  SELECT cidade, COUNT(*) AS total_clientes
-  FROM clientes
-  GROUP BY cidade
-  HAVING COUNT(*) > 10;
-  ```
-
-- **Combinação de `WHERE` e `HAVING`:**
-  ```sql
-  SELECT curso, COUNT(*) AS total_alunos
+  SELECT alunos.nome, notas.nota
   FROM alunos
-  WHERE idade > 18
-  GROUP BY curso
-  HAVING COUNT(*) >= 5;
+  INNER JOIN notas ON alunos.id = notas.aluno_id;
   ```
 
 ---
 
-## **4. Cláusula `CASE WHEN`**
+## **4. Subqueries em SQL**
 
-A cláusula `CASE WHEN` permite criar condições personalizadas em uma consulta SQL, funcionando como uma instrução condicional.
+Subqueries são consultas aninhadas dentro de outras consultas.
 
-### **Sintaxe do `CASE WHEN`**
+### **Tipos de Subqueries**
+
+1. **Subqueries em `SELECT`:**
+   ```sql
+   SELECT nome, (SELECT AVG(nota) FROM notas WHERE notas.aluno_id = alunos.id) AS media_notas
+   FROM alunos;
+   ```
+
+2. **Subqueries em `WHERE`:**
+   ```sql
+   SELECT nome
+   FROM alunos
+   WHERE id IN (SELECT aluno_id FROM notas WHERE nota > 7);
+   ```
+
+3. **Subqueries em `FROM`:**
+   ```sql
+   SELECT AVG(media_notas) AS media_geral
+   FROM (SELECT AVG(nota) AS media_notas FROM notas GROUP BY aluno_id);
+   ```
+
+---
+
+## **5. Triggers em SQL**
+
+Triggers são comandos automáticos executados em resposta a eventos no banco de dados.
+
+### **Criando um Trigger**
 
 ```sql
-SELECT coluna,
-       CASE
-           WHEN condicao1 THEN resultado1
-           WHEN condicao2 THEN resultado2
-           ELSE resultado_padrao
-       END AS alias
-FROM tabela;
+CREATE TRIGGER atualiza_estoque
+AFTER INSERT ON vendas
+FOR EACH ROW
+BEGIN
+  UPDATE produtos
+  SET quantidade = quantidade - NEW.quantidade
+  WHERE id = NEW.produto_id;
+END;
 ```
 
-**Exemplos Práticos**
+---
 
-- **Classificando Faixa Etária:**
+## **6. Views em SQL**
+
+Views são consultas salvas como objetos no banco de dados.
+
+### **Criando uma View**
+
+```sql
+CREATE VIEW vendas_resumo AS
+SELECT produto_id, SUM(quantidade) AS total_vendido
+FROM vendas
+GROUP BY produto_id;
+```
+
+### **Usando uma View**
+
+```sql
+SELECT * FROM vendas_resumo;
+```
+
+---
+
+## **7. Indexação em SQL**
+
+### **O que são índices?**
+
+Índices são estruturas que otimizam o desempenho das consultas, permitindo acesso mais rápido aos dados.
+
+### **Criando um índice**
+
+- **Índice Simples:**
   ```sql
-  SELECT nome,
-         CASE
-             WHEN idade < 18 THEN 'Menor de Idade'
-             WHEN idade BETWEEN 18 AND 59 THEN 'Adulto'
-             ELSE 'Idoso'
-         END AS faixa_etaria
-  FROM clientes;
+  CREATE INDEX idx_nome ON clientes (nome);
   ```
 
-- **Atribuindo Desconto por Categoria:**
+- **Índice Composto:**
   ```sql
-  SELECT produto,
-         CASE
-             WHEN categoria = 'eletrônicos' THEN preco * 0.9
-             WHEN categoria = 'livros' THEN preco * 0.85
-             ELSE preco
-         END AS preco_com_desconto
-  FROM produtos;
+  CREATE INDEX idx_nome_cidade ON clientes (nome, cidade);
   ```
 
+### **Usando Índices**
 
+Os índices são usados automaticamente pelo banco de dados em consultas como:
+```sql
+SELECT * FROM clientes WHERE nome = 'João';
+```
+
+### **Boas Práticas de índices**
+
+1. Crie índices em colunas frequentemente usadas em filtros (`WHERE`) e joins.
+2. Evite índices em colunas com muitos valores repetidos (baixa cardinalidade).
+3. Use índices compostos para consultas que filtram por mais de uma coluna.
+
+---
+
+## **8. UNION e UNION ALL**
+
+### **Diferença entre UNION e UNION ALL**
+
+| **Operador**   | **Descrição**                                                                 |
+|----------------|-------------------------------------------------------------------------------|
+| `UNION`       | Combina os resultados de duas ou mais consultas, removendo duplicatas.        |
+| `UNION ALL`   | Combina os resultados de duas ou mais consultas, mantendo duplicatas.         |
+
+### **Exemplo com UNION**
+
+```sql
+SELECT nome, cidade FROM clientes_a
+UNION
+SELECT nome, cidade FROM clientes_b;
+```
+
+- **Resultado:** Retorna os nomes e cidades de ambas as tabelas, sem duplicatas.
+
+### **Exemplo com UNION ALL**
+
+```sql
+SELECT nome, cidade FROM clientes_a
+UNION ALL
+SELECT nome, cidade FROM clientes_b;
+```
+
+- **Resultado:** Retorna os nomes e cidades de ambas as tabelas, incluindo duplicatas.
+
+### **Regras para UNION e UNION ALL**
+
+1. O mesmo número de colunas deve ser retornado em todas as consultas.
+2. As colunas devem ter tipos de dados compatíveis.
+
+---
+
+## **9. Boas Práticas para Performance em SQL**
+
+1. **Utilize índices**:
+   - Crie índices em colunas frequentemente usadas em `WHERE`, `JOIN` e `ORDER BY`.
+
+2. **Evite `SELECT *`**:
+   - Selecione apenas as colunas necessárias para reduzir o consumo de recursos.
+
+3. **Normalize os Dados**:
+   - Reduza a redundância, mas mantenha um equilíbrio para evitar joins excessivos.
+
+4. **Use Particionamento**:
+   - Divida tabelas grandes em partes menores para melhorar o desempenho.
+
+5. **Analise os Planos de Execução**:
+   - Use comandos como `EXPLAIN` para identificar gargalos em consultas.
+
+---
+
+## **10. Locks em Banco de Dados**
+
+Locks são usados para garantir consistência e integridade dos dados, mas podem causar problemas de desempenho se mal gerenciados.
+
+### **Tipos de Locks**
+
+| **Tipo**              | **Descrição**                                                                     |
+|-----------------------|---------------------------------------------------------------------------------|
+| **Shared Lock (S)**   | Permite leitura simultânea, mas bloqueia escrita.                                |
+| **Exclusive Lock (X)**| Bloqueia leitura e escrita para outras transações.                              |
+| **Deadlock**          | Ocorre quando duas ou mais transações se bloqueiam mutuamente.                  |
+
+### **Evitar Problemas de Locks**
+
+1. **Ordene as Operações:**
+   - Sempre acesse os recursos na mesma ordem em transações.
+
+2. **Use Transações Curta:**
+   - Limite a quantidade de operações dentro de uma transação.
+
+3. **Habilite Timeout:**
+   - Configure um tempo limite para detecção de deadlocks.
+
+---
