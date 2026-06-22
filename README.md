@@ -1,80 +1,175 @@
-# Repositório de Códigos em Java
+# java-estudos
 
-Este repositório contém códigos desenvolvidos em Java, organizados por módulos relacionados ao aprendizado e prática de conceitos específicos. Explore os diversos tópicos abaixo para aprimorar suas habilidades em Java e desenvolvimento de software.
+> Jornada completa de Java: de coleções e OOP até JPA, Hibernate, JDBI e arquitetura de software.  
+> **Java 11 → 21** | **Design Patterns** | **Testes** | **Persistência** | **Engenharia de Software**
 
-## Tópicos por Módulo
+---
 
-### Mod 11/12 (Coleções)
-Introdução e prática de estruturas de dados baseadas em coleções, como Listas, Sets e Mapas em Java.
+## Estrutura do Projeto
 
-### Mod 13 (Interfaces, Heranças, Composição e Agregação)
-Exploração de conceitos fundamentais de OOP, incluindo interfaces, heranças, composição e agregação.
+```
+java-estudos/
+│
+├── collections/                  # Java Collections Framework (List, Queue, Map, Tree)
+│   ├── lineares/                 #   ArrayList, ArrayDeque, PriorityQueue, LinkedList
+│   └── mapas/                    #   Array multidimensional, HashMap, TreeMap, LinkedHashMap
+│
+├── oop_fundamentos/              # OOP: Interfaces, Classes Abstratas, Composição, Polimorfismo
+│
+├── projeto01_crud_swing/         # Projeto 01 — CRUD de Clientes (Swing, Layered Architecture)
+│
+├── design_patterns/              # Design Patterns GOF (10 padrões: Creational/Structural/Behavioral)
+│
+├── generics/                     # Generics: bounds, wildcards, PECS, Generic Repository
+│
+├── annotations_reflection/       # Annotations + Reflection API (base dos frameworks)
+│   ├── annotations_exceptions/   #   Custom annotations, hierarquia de exceções
+│   └── reflection/               #   java.lang.reflect, AuditProcessor, DDL generation
+│
+├── programacao_funcional/        # Programação Funcional (lambdas → streams)
+│   ├── lambdas/                  #   Lambda, java.util.function, method references, closures
+│   └── streams/                  #   Stream pipeline, flatMap, Collectors, parallel streams
+│
+├── testes/                       # Testes Automatizados
+│   ├── junit4/                   #   JUnit 4 fundamentos, Assert.*, lifecycle
+│   └── service_dao/              #   Test Doubles, Suite, constructor injection
+│
+├── projeto02_use_cases/          # Projeto 02 — Use Case Pattern + Maven + CI/CD (GitHub Actions)
+├── projeto02_generic_dao/        # Projeto 02 v1 — Generic DAO + Reflection + @TipoChave
+│
+├── sql_fundamentos/              # SQL: DDL, DML, JOINs, Subqueries, Views, Triggers, Índices
+├── jdbc/                         # JDBC: DriverManager, PreparedStatement, ConnectionFactory, DAO
+│
+├── orm/                          # ORM — Pure JPA · Hibernate Native · JDBI 3 · HikariCP · JDK 21
+│
+├── java21/                       # Java 21 LTS — Virtual Threads, Pattern Matching, Sequenced Collections
+│
+└── guia_engenharia/              # Guias transversais: Big O, Carga Cognitiva, Coesão/Acoplamento
+```
 
-### Mod 14 (Projeto 01)
-Desenvolvimento prático de um projeto aplicando os conceitos aprendidos nos módulos anteriores.
+---
 
-### Mod 15/16 (Padrões de Projetos)
-Estudo e implementação de padrões de projeto para melhorar a arquitetura e a manutenibilidade do código.
+## Navegação
 
-### Mod 17 (Generics)
-Compreensão e aplicação de generics para criar classes e métodos que trabalham com tipos específicos de forma mais flexível.
+### Fundamentos da Linguagem
 
-### Mod 18 (Annotations e Exceptions)
-Utilização de annotations para metadados e tratamento de exceções para lidar com situações imprevistas.
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [collections](./collections/README.md) | Collections Framework | List, Queue, Map · O(1) vs O(log n) · Comparator |
+| [oop_fundamentos](./oop_fundamentos/README.md) | OOP | Interface, Abstract Class, Composição · Repository Pattern · Optional |
+| [generics](./generics/README.md) | Generics | Bounds, Wildcards, PECS · Generic Repository · Type Erasure |
+| [annotations_reflection](./annotations_reflection/README.md) | Annotations + Reflection | `@Retention`, `@Target` · `java.lang.reflect` · DDL generation |
+| [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | `java.util.function` · Stream pipeline · Collectors · Parallel |
 
-### Mod 19 (Reflections)
-Exploração da reflexão em Java para inspecionar e manipular classes, métodos e campos em tempo de execução.
+### Design e Arquitetura
 
-### Mod 20/21 (Expressões Lambdas)
-Introdução às expressões lambda, proporcionando uma maneira concisa de expressar instâncias de interfaces funcionais.
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [design_patterns](./design_patterns/README.md) | Design Patterns GOF | Singleton, Factory, Builder, Adapter, Facade, Observer, Strategy |
+| [projeto01_crud_swing](./projeto01_crud_swing/README.md) | Projeto 01 | Layered Architecture · Use Cases · Repository · Swing |
+| [projeto02_use_cases](./projeto02_use_cases/README.md) | Projeto 02 | Clean Use Cases · Domain Exceptions · Maven · CI/CD |
+| [projeto02_generic_dao](./projeto02_generic_dao/README.md) | Projeto 02 v1 | Generic DAO · Reflection · `@TipoChave` · Singleton Map |
 
-### Mod 22 (Streams)
-Utilização de streams para processar sequências de elementos de forma funcional e eficiente.
+### Testes
 
-### Mod 23/24 (Testes)
-Práticas e ferramentas para teste de software, incluindo JUnit e estratégias de teste.
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [testes](./testes/README.md) | Testes Automatizados | JUnit 4 · Test Doubles · Mock/Stub/Fake · Suite · Constructor DI |
 
-### Mod 25 (Projeto 02)
-Desenvolvimento prático de um segundo projeto, aplicando os conhecimentos adquiridos nos módulos anteriores.
+### Persistência
 
-### Mod 26/27/28 (Banco de Dados)
-Exploração de conceitos relacionados a bancos de dados, incluindo JDBC e manipulação de dados.
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [sql_fundamentos](./sql_fundamentos/README.md) | SQL | DDL/DML · JOINs · Subqueries · Views · Triggers · EXPLAIN ANALYZE |
+| [jdbc](./jdbc/README.md) | JDBC | DriverManager · PreparedStatement · ConnectionFactory · DAO |
+| [orm](./orm/README.md) | ORM | Pure JPA · Hibernate Session API · JDBI 3 · HikariCP · JDK 21 |
 
-### Mod 29/30 (Projeto 03)
-Continuação do desenvolvimento prático com foco em manipulação e interação com banco de dados.
+### Java 21 e Engenharia
 
-### Mod 31 (ORMs e JPA)
-Introdução a Object-Relational Mapping (ORM) e Java Persistence API (JPA) para facilitar o acesso a bancos de dados relacionais.
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [java21](./java21/README.md) | Java 21 LTS | Virtual Threads · Pattern Matching switch · Record Patterns · Sequenced Collections |
+| [guia_engenharia](./guia_engenharia/README.md) | Boas Práticas | Big O · Carga Cognitiva · Alta Coesão · Baixo Acoplamento |
 
-### Mod 32 (Modelagem de Entidade)
-Discussão sobre modelagem de entidades em sistemas orientados a objetos.
+---
 
-### Mod 33 (JPA Avançado)
-Aprofundamento nos recursos avançados da Java Persistence API.
+## Evolução Arquitetural
 
-### Mod 34 (Mais sobre Banco de Dados)
-Exploração de tópicos adicionais relacionados a bancos de dados.
+O projeto acompanha a evolução natural de um desenvolvedor Java, revisitando
+o mesmo domínio (Customer/Client CRUD) com arquiteturas progressivamente mais sofisticadas:
 
-### Mod 35 (Projeto 04)
-Desenvolvimento prático do quarto projeto, aplicando os conhecimentos sobre banco de dados e JPA.
+```
+collections          →  Lógica procedural com coleções
+oop_fundamentos      →  Separação por interfaces e herança
+projeto01_crud_swing →  Layered Architecture: domain → repository → useCase → UI
+generics             →  Generic Repository com Template Method
+projeto02_generic_dao→  Generic DAO com Reflection (@TipoChave)
+projeto02_use_cases  →  Clean Use Cases + Custom Exceptions + CI/CD
+jdbc                 →  Raw SQL com ConnectionFactory + DAO
+orm                  →  Pure JPA · Hibernate Session API · JDBI 3 · HikariCP
+java21               →  Virtual Threads · Modern Pattern Matching
+```
 
-### Mod 36 (Testes)
-Continuação das práticas e estratégias de teste, aprimorando a qualidade do código.
+---
 
-### Mod 37 (Compilando e Gerenciando Dependências dos Projetos)
-Discussão sobre a compilação e gerenciamento de dependências em projetos Java.
+## Stack Tecnológica
 
-### Mod 38 (Criando um Projeto Monolítico para Web)
-Desenvolvimento de um projeto monolítico voltado para a web, abordando aspectos práticos.
+```
+Linguagem  : Java 11 (collections–jdbc) · Java 21 (orm, java21)
+Build      : IntelliJ IDEA (.iml) · Maven (projeto02_use_cases, orm)
+ORM        : Hibernate 6.4 (Jakarta EE) · JDBI 3.45
+Pool       : HikariCP 5.1
+Banco      : PostgreSQL 14+
+Testes     : JUnit 4 (testes/) · JUnit 5 / Jupiter (orm/)
+CI/CD      : GitHub Actions (projeto02_use_cases)
+```
 
-### Mod 39 (Servidores de Aplicações)
-Exploração de servidores de aplicação e suas configurações.
+---
 
-### Mod 40 (SpringBoot)
-Introdução ao Spring Boot para simplificar o desenvolvimento de aplicativos Java.
+## Pré-requisitos
 
-### Mod 41 (O que são Microserviços)
-Discussão sobre conceitos de arquitetura de microserviços e suas vantagens.
+```bash
+java -version   # Java 21+ para orm e java21; Java 11+ para demais
+mvn -version    # 3.8+ (apenas projeto02_use_cases e orm)
+psql --version  # PostgreSQL 14+ (apenas jdbc e orm)
+```
 
-### Mod 42 (Criando Microserviços)
-Prática na criação de microserviços, abordando desafios e boas práticas.
+### Banco de dados
+
+```sql
+CREATE DATABASE vendas_online;
+-- Usuário: postgres / Senha: admin (configurável em persistence.xml e JdbiConfig)
+```
+
+---
+
+## Como executar
+
+### Módulos IntelliJ (sem pom.xml)
+
+Abra a pasta do módulo no IntelliJ IDEA como projeto e execute a classe `Main.java`.
+
+### Módulos Maven
+
+```bash
+cd projeto02_use_cases && mvn test
+cd orm                 && mvn test
+```
+
+### Demos Java 21
+
+```bash
+cd java21/src
+javac --enable-preview --release 21 br/com/murilo/virtualthreads/VirtualThreadsDemo.java
+java  --enable-preview -cp . br.com.murilo.virtualthreads.VirtualThreadsDemo
+```
+
+---
+
+## Guia de Engenharia (referência transversal)
+
+| Documento | Quando consultar |
+|---|---|
+| [Big O — Collections Java](./guia_engenharia/COMPLEXIDADE_ALGORITMOS.md) | Ao escolher estrutura de dados ou otimizar buscas |
+| [Carga Cognitiva](./guia_engenharia/CARGA_COGNITIVA.md) | Ao revisar nomes, aninhamento, parâmetros |
+| [Coesão e Acoplamento](./guia_engenharia/COESAO_ACOPLAMENTO.md) | Ao projetar classes, pacotes, dependências |

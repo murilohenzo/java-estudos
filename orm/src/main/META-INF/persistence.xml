@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    persistence.xml — JPA 3.1 (Jakarta EE 10)
+    Utilizado exclusivamente pela camada JPA pura (CourseJpaRepository)
+    e pela camada Hibernate pura (CourseHibernateRepository) quando
+    o bootstrap se dá via Persistence.createEntityManagerFactory().
+
+    Para JDBI, NÃO há persistence.xml — a DataSource é configurada
+    programaticamente via HikariCP em JdbiConfig.
+-->
+<persistence version="3.0"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+
+    <persistence-unit name="ExemploJPA" transaction-type="RESOURCE_LOCAL">
+
+        <!-- Hibernate 6.x como provedor JPA 3.1 -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- Entidades gerenciadas — listagem explícita evita scanning de classpath -->
+        <class>br.com.murilo.domain.Course</class>
+        <class>br.com.murilo.domain.Registration</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+        <properties>
+            <!-- ── JDBC ── -->
+            <property name="jakarta.persistence.jdbc.driver"   value="org.postgresql.Driver" />
+            <property name="jakarta.persistence.jdbc.url"      value="jdbc:postgresql://localhost:5432/vendas_online" />
+            <property name="jakarta.persistence.jdbc.user"     value="postgres" />
+            <property name="jakarta.persistence.jdbc.password" value="admin" />
+
+            <!-- ── Hibernate Dialect ── -->
+            <!--
+                PostgreSQLDialect (sem versão) é o padrão recomendado no Hibernate 6+.
+                Ele detecta automaticamente a versão do servidor via JDBC metadata.
+            -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+
+            <!--
+                DDL strategy:
+                  create-drop : recria schema a cada start (bom para testes)
+                  update       : aplica diff incremental (dev/staging)
+                  validate     : apenas valida sem alterar (produção)
+                  none         : desabilita completamente (produção com Flyway/Liquibase)
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <!-- SQL Logging — desabilitar em produção para evitar leak de dados sensíveis -->
+            <property name="hibernate.show_sql"   value="true" />
+            <property name="hibernate.format_sql" value="true" />
+
+            <!-- Estatísticas de sessão — útil para diagnóstico de N+1 queries -->
+            <property name="hibernate.generate_statistics" value="false" />
+
+            <!--
+                Batch size — agrupa INSERT/UPDATE em batch JDBC para reduzir
+                round-trips ao banco quando persistindo coleções grandes.
+            -->
+            <property name="hibernate.jdbc.batch_size" value="25" />
+        </properties>
+
+    </persistence-unit>
+</persistence>
