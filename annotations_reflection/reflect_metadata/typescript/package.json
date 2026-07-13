@@ -1,0 +1,14 @@
+{
+  "name": "mini-reflect-metadata",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Implementação educacional no estilo microsoft/reflect-metadata — TypeScript 5.3.3 puro",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "demo": "tsc -p tsconfig.json && node dist/demo.js",
+    "start": "npm run demo"
+  },
+  "devDependencies": {
+    "typescript": "5.3.3"
+  }
+}

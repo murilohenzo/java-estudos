@@ -14,6 +14,7 @@
 | [`reflection/`](./reflection/README.md) | `java.lang.reflect`, `AuditProcessor`, DDL generation via `@ClassTable`/`@Column` |
 | [`mini_ioc/`](./mini_ioc/README.md) | Mini container de beans estilo Spring — `@Component`, DI, registry thread-safe, ciclo de vida (JDK 21) |
 | [`mini_ioc_jdk25/`](./mini_ioc_jdk25/README.md) | Mesmo IoC em JDK 25 — `ScopedValue` no lugar de `ThreadLocal` (detecção de ciclo) |
+| [`reflect_metadata/`](./reflect_metadata/README.md) | Comparativo Java ↔ `reflect-metadata` (TS 5.3.3) + espelho de API |
 
 ---
 
@@ -42,6 +43,12 @@ mini_ioc/
          ▼
 mini_ioc_jdk25/
   ApplicationContext     ← ScopedValue (JEP 506) no lugar de ThreadLocal
+         │
+         │  (camada de metadados — paralelo Nest/TS)
+         ▼
+reflect_metadata/
+  typescript/            ← mini reflect-metadata (TS 5.3.3)
+  java/MetadataReflect   ← mesma API em Java (comparativo)
 ```
 
 ---
@@ -55,6 +62,8 @@ mini_ioc_jdk25/
 | **JUnit 5** | `@Test`, `@BeforeEach` | Descobre e executa métodos de teste |
 | **Jackson** | `@JsonProperty` | Serializa/deserializa campos |
 | **Este repo (`mini_ioc`)** | `@Component`, `@Inject` | IoC manual — bean registry + lifecycle |
+| **NestJS / TypeORM** | Decorators + `reflect-metadata` | Lê `design:paramtypes` em runtime |
+| **Este repo (`reflect_metadata`)** | `defineMetadata` (TS/Java) | Comparativo educacional com a lib TS |
 
 ---
 
@@ -62,4 +71,5 @@ mini_ioc_jdk25/
 
 - [`mini_ioc/`](./mini_ioc/README.md) — analogia prática ao bean container do Spring Boot (JDK 21)  
 - [`mini_ioc_jdk25/`](./mini_ioc_jdk25/README.md) — mesma analogia com Scoped Values (JDK 25)  
+- [`reflect_metadata/`](./reflect_metadata/README.md) — comparativo com [reflect-metadata](https://github.com/microsoft/reflect-metadata) (TS 5.3.3)  
 - `orm/` — anotações Jakarta EE (`@Entity`, `@OneToMany`) em produção
