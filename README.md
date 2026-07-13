@@ -90,7 +90,7 @@ java-estudos/
 | Módulo | Tópico | Conceitos-chave |
 |--------|--------|-----------------|
 | [java21](./java21/README.md) | Java 21 LTS | Virtual Threads · Pattern Matching switch · Record Patterns · Sequenced Collections |
-| [java25](./java25/README.md) | Java 25 LTS | Scoped Values · Flexible Constructors · Compact Source · Module Import · Runtime |
+| [java25](./java25/README.md) | Java 25 LTS | 18 JEPs · Scoped Values · Flexible Constructors · KDF · JFR/AOT · Previews |
 | [guia_engenharia](./guia_engenharia/README.md) | Boas Práticas | Big O · Carga Cognitiva · Alta Coesão · Baixo Acoplamento |
 
 ---
