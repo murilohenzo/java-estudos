@@ -1,15 +1,16 @@
-# Mod 22 — Streams API
+# Streams API
 
-> **Conceito central:** Pipeline declarativo e funcional para processamento de coleções.  
-> Operações intermediárias · Operações terminais · `Collectors` · Streams paralelos · `flatMap`
+> **Conceito central:** pipeline declarativo sobre sequências.  
+> Cada operação intermediária/terminal recebe uma interface funcional — ver [`../lambdas/README.md`](../lambdas/README.md).
 
 ---
 
 ## Conteúdo
 
 ```
-mod22/src/exercicio/
-└── Main.java    # Exercícios com filter, map, reduce, collect, flatMap
+streams/src/exercicio/
+├── Customer.java
+└── Demo.java
 ```
 
 ---
@@ -19,15 +20,27 @@ mod22/src/exercicio/
 ```
 Source → Intermediate Operations → Terminal Operation
   │               │                       │
-List.of(...)   .filter(...)           .collect(...)
-               .map(...)              .toList()
-               .sorted(...)           .count()
-               .distinct()            .forEach(...)
-               .limit(n)              .reduce(...)
-               .flatMap(...)          .findFirst()
+List.of(...)   .filter(Predicate)      .collect(...)
+               .map(Function)          .toList()
+               .sorted(Comparator)     .reduce(BinaryOperator)
+               .flatMap(Function)      .forEach(Consumer)
+               .peek(Consumer)         .anyMatch(Predicate)
 ```
 
-Streams são **lazy** — operações intermediárias não executam até que uma operação terminal seja invocada.
+Streams são **lazy** — intermediárias não executam até uma terminal.
+
+### Qual interface entra onde
+
+| Operação | Interface funcional |
+|---|---|
+| `filter` / `takeWhile` | `Predicate<T>` |
+| `map` | `Function<T,R>` |
+| `mapToInt` | `ToIntFunction<T>` |
+| `flatMap` | `Function<T, Stream<R>>` |
+| `peek` / `forEach` | `Consumer<T>` |
+| `reduce` | `BinaryOperator<T>` ou `BiFunction` |
+| `anyMatch` / `allMatch` | `Predicate<T>` |
+| `IntStream.map` | `IntUnaryOperator` |
 
 ---
 
@@ -194,6 +207,7 @@ long sum = LongStream.rangeClosed(1, 1_000_000)
 
 ---
 
-## Próximo Módulo
+## Relacionado
 
-[mod23 — Testes com JUnit 4](../mod23/README.md)
+- [Lambdas e Interfaces Funcionais](../lambdas/README.md)
+- [Testes](../../testes/README.md)

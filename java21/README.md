@@ -1,7 +1,7 @@
 # mod_java21 — Java 21: Novos Recursos Essenciais
 
-> **Java LTS 21** é a versão mais recente de suporte de longo prazo.  
-> Este módulo cobre os recursos que ainda não apareceram nos módulos anteriores.
+> **Java LTS 21** foi o LTS anterior ao Java 25.  
+> Este módulo cobre os recursos essenciais da 21. Para o LTS atual, veja [`java25/`](../java25/README.md).
 
 ---
 
@@ -14,7 +14,7 @@
 - [Unnamed Variables & Patterns (JEP 443)](#5-unnamed-variables--patterns--jep-443-preview)
 - [Sealed Classes — revisão completa](#6-sealed-classes--revisão-completa-jep-409-ga-java-17)
 - [Recursos vistos em outros módulos](#recursos-já-cobertos-em-outros-módulos)
-- [Roadmap Java 23/25 (próximos LTS)](#roadmap-java-2325)
+- [Próximo LTS — Java 25](#próximo-lts--java-25)
 
 ---
 
@@ -286,16 +286,20 @@ non-sealed class Blob extends Shape {}  // sem restrições (abre a hierarquia)
 
 ---
 
-## Roadmap Java 23/25
+## Próximo LTS — Java 25
 
-| Recurso | JEP | Status |
-|---|---|---|
-| String Templates | JEP 430 | Preview Java 21, removido, reimplementado |
-| Structured Concurrency | JEP 453 | Preview Java 21, GA Java 23 |
-| Unnamed Classes & Instance Main | JEP 463 | Preview Java 21 |
-| Scoped Values | JEP 446 | Preview Java 21, GA Java 23 |
-| Primitive Patterns in switch | futura JEP | Em discussão |
-| Value Objects (Project Valhalla) | futura JEP | Aguardado no Java 25 LTS |
+O LTS seguinte é o **Java 25** (GA 16/09/2025). Status real vs o que se especulava na era 21:
+
+| Recurso | Status na JDK 25 |
+|---|---|
+| Scoped Values | **GA** (JEP 506) |
+| Flexible Constructor Bodies | **GA** (JEP 513) |
+| Compact Source Files & Instance Main | **GA** (JEP 512) |
+| Module Import Declarations | **GA** (JEP 511) |
+| Structured Concurrency | Ainda preview (JEP 505) |
+| Value Objects (Valhalla) | **Não chegou** |
+
+Documento completo + demos: [`../java25/README.md`](../java25/README.md).
 
 ---
 

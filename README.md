@@ -1,7 +1,7 @@
 # java-estudos
 
 > Jornada completa de Java: de coleções e OOP até JPA, Hibernate, JDBI e arquitetura de software.  
-> **Java 11 → 21** | **Design Patterns** | **Testes** | **Persistência** | **Engenharia de Software**
+> **Java 11 → 25** | **Design Patterns** | **Testes** | **Persistência** | **Engenharia de Software**
 
 ---
 
@@ -43,6 +43,7 @@ java-estudos/
 ├── orm/                          # ORM — Pure JPA · Hibernate Native · JDBI 3 · HikariCP · JDK 21
 │
 ├── java21/                       # Java 21 LTS — Virtual Threads, Pattern Matching, Sequenced Collections
+├── java25/                       # Java 25 LTS — Scoped Values, Flexible Constructors, Compact Source, Module Import
 │
 └── guia_engenharia/              # Guias transversais: Big O, Carga Cognitiva, Coesão/Acoplamento
 ```
@@ -59,7 +60,7 @@ java-estudos/
 | [oop_fundamentos](./oop_fundamentos/README.md) | OOP | Interface, Abstract Class, Composição · Repository Pattern · Optional |
 | [generics](./generics/README.md) | Generics | Bounds, Wildcards, PECS · Generic Repository · Type Erasure |
 | [annotations_reflection](./annotations_reflection/README.md) | Annotations + Reflection | `@Retention`, `@Target` · `java.lang.reflect` · DDL generation |
-| [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | `java.util.function` · Stream pipeline · Collectors · Parallel |
+| [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | Catálogo `java.util.function` · composição · Stream pipeline · Collectors |
 
 ### Design e Arquitetura
 
@@ -84,11 +85,12 @@ java-estudos/
 | [jdbc](./jdbc/README.md) | JDBC | DriverManager · PreparedStatement · ConnectionFactory · DAO |
 | [orm](./orm/README.md) | ORM | Pure JPA · Hibernate Session API · JDBI 3 · HikariCP · JDK 21 |
 
-### Java 21 e Engenharia
+### Java LTS e Engenharia
 
 | Módulo | Tópico | Conceitos-chave |
 |--------|--------|-----------------|
 | [java21](./java21/README.md) | Java 21 LTS | Virtual Threads · Pattern Matching switch · Record Patterns · Sequenced Collections |
+| [java25](./java25/README.md) | Java 25 LTS | Scoped Values · Flexible Constructors · Compact Source · Module Import · Runtime |
 | [guia_engenharia](./guia_engenharia/README.md) | Boas Práticas | Big O · Carga Cognitiva · Alta Coesão · Baixo Acoplamento |
 
 ---
@@ -108,6 +110,7 @@ projeto02_use_cases  →  Clean Use Cases + Custom Exceptions + CI/CD
 jdbc                 →  Raw SQL com ConnectionFactory + DAO
 orm                  →  Pure JPA · Hibernate Session API · JDBI 3 · HikariCP
 java21               →  Virtual Threads · Modern Pattern Matching
+java25               →  Scoped Values · Flexible Constructors · Compact Source
 ```
 
 ---
@@ -115,7 +118,7 @@ java21               →  Virtual Threads · Modern Pattern Matching
 ## Stack Tecnológica
 
 ```
-Linguagem  : Java 11 (collections–jdbc) · Java 21 (orm, java21)
+Linguagem  : Java 11 (collections–jdbc) · Java 21 (orm, java21) · Java 25 (java25)
 Build      : IntelliJ IDEA (.iml) · Maven (projeto02_use_cases, orm)
 ORM        : Hibernate 6.4 (Jakarta EE) · JDBI 3.45
 Pool       : HikariCP 5.1
@@ -129,7 +132,7 @@ CI/CD      : GitHub Actions (projeto02_use_cases)
 ## Pré-requisitos
 
 ```bash
-java -version   # Java 21+ para orm e java21; Java 11+ para demais
+java -version   # Java 25+ para java25; Java 21+ para orm/java21; Java 11+ para demais
 mvn -version    # 3.8+ (apenas projeto02_use_cases e orm)
 psql --version  # PostgreSQL 14+ (apenas jdbc e orm)
 ```
@@ -156,12 +159,17 @@ cd projeto02_use_cases && mvn test
 cd orm                 && mvn test
 ```
 
-### Demos Java 21
+### Demos Java 21 / 25
 
 ```bash
 cd java21/src
-javac --enable-preview --release 21 br/com/murilo/virtualthreads/VirtualThreadsDemo.java
-java  --enable-preview -cp . br.com.murilo.virtualthreads.VirtualThreadsDemo
+javac --release 21 br/com/murilo/virtualthreads/VirtualThreadsDemo.java
+java -cp . br.com.murilo.virtualthreads.VirtualThreadsDemo
+
+cd java25/src
+javac --release 25 br/com/murilo/scoped/ScopedValuesDemo.java
+java -cp . br.com.murilo.scoped.ScopedValuesDemo
+java CompactSourceDemo.java
 ```
 
 ---
