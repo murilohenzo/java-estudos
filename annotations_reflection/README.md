@@ -12,10 +12,11 @@
 |---|---|
 | [`annotations_exceptions/`](./annotations_exceptions/README.md) | Custom annotations (`@Retention`, `@Target`), hierarquia de exceções de domínio, `try-with-resources` |
 | [`reflection/`](./reflection/README.md) | `java.lang.reflect`, `AuditProcessor`, DDL generation via `@ClassTable`/`@Column` |
+| [`mini_ioc/`](./mini_ioc/README.md) | Mini container de beans estilo Spring — `@Component`, DI, registry thread-safe, ciclo de vida (JDK 21) |
 
 ---
 
-## Relação entre os dois módulos
+## Relação entre os módulos
 
 ```
 annotations_exceptions/
@@ -28,6 +29,13 @@ reflection/
   AuditProcessor         ← inspeciona campos com @Auditable
   TableReflections       ← gera DDL a partir de @ClassTable + @Column
                            (simulação de como o Hibernate funciona internamente)
+         │
+         │  (mesmo princípio aplicado a DI)
+         ▼
+mini_ioc/
+  @Component + @Inject   ← metadados de bean
+  ApplicationContext     ← reflection instancia, injeta e controla lifecycle
+  BeanRegistry           ← encapsula singletons de forma thread-safe
 ```
 
 ---
@@ -40,10 +48,11 @@ reflection/
 | **Spring** | `@Component`, `@Autowired` | Escaneia classpath, injeta dependências |
 | **JUnit 5** | `@Test`, `@BeforeEach` | Descobre e executa métodos de teste |
 | **Jackson** | `@JsonProperty` | Serializa/deserializa campos |
+| **Este repo (`mini_ioc`)** | `@Component`, `@Inject` | IoC manual — bean registry + lifecycle |
 
 ---
 
 ## Referência relacionada
 
-Ver `orm/` para ver anotações Jakarta EE (`@Entity`, `@OneToMany`) em produção,
-e como o Hibernate as lê via reflection internamente.
+- [`mini_ioc/`](./mini_ioc/README.md) — analogia prática ao bean container do Spring Boot  
+- `orm/` — anotações Jakarta EE (`@Entity`, `@OneToMany`) em produção

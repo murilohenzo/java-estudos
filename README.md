@@ -24,7 +24,8 @@ java-estudos/
 │
 ├── annotations_reflection/       # Annotations + Reflection API (base dos frameworks)
 │   ├── annotations_exceptions/   #   Custom annotations, hierarquia de exceções
-│   └── reflection/               #   java.lang.reflect, AuditProcessor, DDL generation
+│   ├── reflection/               #   java.lang.reflect, AuditProcessor, DDL generation
+│   └── mini_ioc/                 #   Mini Spring-like IoC: @Component, registry, lifecycle (JDK 21)
 │
 ├── programacao_funcional/        # Programação Funcional (lambdas → streams)
 │   ├── lambdas/                  #   Lambda, java.util.function, method references, closures
@@ -59,7 +60,7 @@ java-estudos/
 | [collections](./collections/README.md) | Collections Framework | List, Queue, Map · O(1) vs O(log n) · Comparator |
 | [oop_fundamentos](./oop_fundamentos/README.md) | OOP | Interface, Abstract Class, Composição · Repository Pattern · Optional |
 | [generics](./generics/README.md) | Generics | Bounds, Wildcards, PECS · Generic Repository · Type Erasure |
-| [annotations_reflection](./annotations_reflection/README.md) | Annotations + Reflection | `@Retention`, `@Target` · `java.lang.reflect` · DDL generation |
+| [annotations_reflection](./annotations_reflection/README.md) | Annotations + Reflection | Custom annotations · DDL via reflection · Mini IoC / bean registry |
 | [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | OO vs funcional · diamante · `java.util.function` · Streams |
 
 ### Design e Arquitetura
