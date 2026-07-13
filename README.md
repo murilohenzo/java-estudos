@@ -25,7 +25,8 @@ java-estudos/
 ├── annotations_reflection/       # Annotations + Reflection API (base dos frameworks)
 │   ├── annotations_exceptions/   #   Custom annotations, hierarquia de exceções
 │   ├── reflection/               #   java.lang.reflect, AuditProcessor, DDL generation
-│   └── mini_ioc/                 #   Mini Spring-like IoC: @Component, registry, lifecycle (JDK 21)
+│   ├── mini_ioc/                 #   Mini Spring-like IoC (JDK 21, ThreadLocal)
+│   └── mini_ioc_jdk25/           #   Mesmo IoC com Scoped Values (JDK 25)
 │
 ├── programacao_funcional/        # Programação Funcional (lambdas → streams)
 │   ├── lambdas/                  #   Lambda, java.util.function, method references, closures

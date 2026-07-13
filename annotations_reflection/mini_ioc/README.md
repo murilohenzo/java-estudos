@@ -147,3 +147,5 @@ java br.com.murilo.ioc.demo.MiniIocDemo
 - Circular dependency: detectada e rejeitada (sem early reference do Spring)
 
 Serve para entender o **mecanismo** por trás do Spring, não para substituí-lo.
+
+Variante JDK 25 com Scoped Values: [`../mini_ioc_jdk25/`](../mini_ioc_jdk25/README.md).

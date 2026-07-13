@@ -13,6 +13,7 @@
 | [`annotations_exceptions/`](./annotations_exceptions/README.md) | Custom annotations (`@Retention`, `@Target`), hierarquia de exceções de domínio, `try-with-resources` |
 | [`reflection/`](./reflection/README.md) | `java.lang.reflect`, `AuditProcessor`, DDL generation via `@ClassTable`/`@Column` |
 | [`mini_ioc/`](./mini_ioc/README.md) | Mini container de beans estilo Spring — `@Component`, DI, registry thread-safe, ciclo de vida (JDK 21) |
+| [`mini_ioc_jdk25/`](./mini_ioc_jdk25/README.md) | Mesmo IoC em JDK 25 — `ScopedValue` no lugar de `ThreadLocal` (detecção de ciclo) |
 
 ---
 
@@ -36,6 +37,11 @@ mini_ioc/
   @Component + @Inject   ← metadados de bean
   ApplicationContext     ← reflection instancia, injeta e controla lifecycle
   BeanRegistry           ← encapsula singletons de forma thread-safe
+         │
+         │  (mesma ideia, JDK 25)
+         ▼
+mini_ioc_jdk25/
+  ApplicationContext     ← ScopedValue (JEP 506) no lugar de ThreadLocal
 ```
 
 ---
@@ -54,5 +60,6 @@ mini_ioc/
 
 ## Referência relacionada
 
-- [`mini_ioc/`](./mini_ioc/README.md) — analogia prática ao bean container do Spring Boot  
+- [`mini_ioc/`](./mini_ioc/README.md) — analogia prática ao bean container do Spring Boot (JDK 21)  
+- [`mini_ioc_jdk25/`](./mini_ioc_jdk25/README.md) — mesma analogia com Scoped Values (JDK 25)  
 - `orm/` — anotações Jakarta EE (`@Entity`, `@OneToMany`) em produção
