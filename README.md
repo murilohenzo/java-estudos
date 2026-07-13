@@ -60,7 +60,7 @@ java-estudos/
 | [oop_fundamentos](./oop_fundamentos/README.md) | OOP | Interface, Abstract Class, Composição · Repository Pattern · Optional |
 | [generics](./generics/README.md) | Generics | Bounds, Wildcards, PECS · Generic Repository · Type Erasure |
 | [annotations_reflection](./annotations_reflection/README.md) | Annotations + Reflection | `@Retention`, `@Target` · `java.lang.reflect` · DDL generation |
-| [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | Catálogo `java.util.function` · composição · Stream pipeline · Collectors |
+| [programacao_funcional](./programacao_funcional/README.md) | Lambdas + Streams | OO vs funcional · diamante · `java.util.function` · Streams |
 
 ### Design e Arquitetura
 

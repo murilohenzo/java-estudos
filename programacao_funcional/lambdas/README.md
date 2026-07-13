@@ -9,6 +9,7 @@
 
 ```
 lambdas/src/lambdas/
+├── ParadigmsAndDiamondDemo.java  # OO vs FP + problema do diamante
 ├── FunctionalInterfacesCatalog.java  # Supplier → BiPredicate + composição
 ├── PrimitiveFunctionalDemo.java      # Int*/Long*/Double*/BooleanSupplier
 ├── UseCasesDemo.java                 # validação, retry, Map.merge, pipeline
@@ -16,6 +17,8 @@ lambdas/src/lambdas/
 ├── TesteLambdas.java / TesteLambdasThreads.java
 └── anonimas/                         # sintaxe e method references
 ```
+
+> Visão de paradigmas e diamante: [`../README.md`](../README.md#paradigma-oo-vs-funcional).
 
 ---
 
