@@ -54,7 +54,7 @@ public class ClienteBean implements Serializable {
     public void simularFalha() {
         try {
             facade.cadastrarComFalha(new NovoCliente(nome, email));
-        } catch (IllegalStateException e) {
+        } catch (RuntimeException e) {
             mensagem(FacesMessage.SEVERITY_WARN, e.getMessage());
         }
     }
