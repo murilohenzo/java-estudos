@@ -9,7 +9,8 @@ Este módulo complementa os estudos já existentes de [ORM](../orm/README.md), [
 | Documento | Conteúdo | Uso recomendado |
 |---|---|---|
 | [Guia de estudos — Prova Portugal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) | Teoria, diagramas Mermaid, análise de código, 11 questões relatadas, simulado com 30 questões, gabarito comentado e referências oficiais | **Leitura principal** |
-| [Plano prático de laboratório](./PLANO_PRATICO.md) | Passos de implementação, entregáveis e testes Given/When/Then | **Consolidar os conceitos na prática** |
+| [Plano prático de laboratório](./PLANO_PRATICO.md) | Backlog, entregáveis e testes Given/When/Then | **Consolidar os conceitos na prática** |
+| [Laboratório MVC executável](./laboratorio/README.md) | Código JSF, CDI, EJB, JPA, Maven, testes e roteiro de deploy | **Praticar no código** |
 
 ## Roteiro sugerido
 
@@ -32,7 +33,7 @@ Este módulo complementa os estudos já existentes de [ORM](../orm/README.md), [
 
 Os exemplos do guia usam `jakarta.*`; ao estudar aplicações Java EE 6/7/8, confira as versões do servidor, da API e das bibliotecas antes de transpor os exemplos.
 
-> **Status:** documentação de estudo e plano de implementação. **Não existe ainda uma aplicação Java EE executável neste módulo.** Os comandos e testes descritos no plano são atividades futuras e não representam funcionalidades já implementadas.
+> **Status:** documentação de estudo e plano de implementação. **Existe agora uma implementação Maven/WAR em `laboratorio/`, ainda dependente de validação em GlassFish real.** Os comandos e testes descritos no plano são atividades futuras e não representam funcionalidades já implementadas.
 
 ## Relação com a evolução do repositório
 
