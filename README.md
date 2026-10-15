@@ -43,6 +43,11 @@ java-estudos/
 ├── sql_fundamentos/              # SQL: DDL, DML, JOINs, Subqueries, Views, Triggers, Índices
 ├── jdbc/                         # JDBC: DriverManager, PreparedStatement, ConnectionFactory, DAO
 │
+├── javaee/                      # Java EE / Jakarta EE: JSF, CDI, EJB, JPA e prova técnica
+│   ├── README.md                #   Trilha de navegação e referências
+│   ├── GUIA_ESTUDOS_PROVA_PORTUGAL.md  # Teoria, simulado e gabarito
+│   └── PLANO_PRATICO.md         #   Roteiro de laboratório (planejado)
+│
 ├── orm/                          # ORM — Pure JPA · Hibernate Native · JDBI 3 · HikariCP · JDK 21
 │
 ├── java21/                       # Java 21 LTS — Virtual Threads, Pattern Matching, Sequenced Collections
@@ -88,6 +93,12 @@ java-estudos/
 | [jdbc](./jdbc/README.md) | JDBC | DriverManager · PreparedStatement · ConnectionFactory · DAO |
 | [orm](./orm/README.md) | ORM | Pure JPA · Hibernate Session API · JDBI 3 · HikariCP · JDK 21 |
 
+### Java Enterprise (Java EE / Jakarta EE)
+
+| Módulo | Tópico | Conceitos-chave |
+|--------|--------|-----------------|
+| [javaee](./javaee/README.md) | Java EE / Jakarta EE | [Guia da prova Portugal](./javaee/GUIA_ESTUDOS_PROVA_PORTUGAL.md) · JSF/PrimeFaces · CDI · EJB/CMT · JPA · [Laboratório](./javaee/PLANO_PRATICO.md) |
+
 ### Java LTS e Engenharia
 
 | Módulo | Tópico | Conceitos-chave |
@@ -111,6 +122,7 @@ generics             →  Generic Repository com Template Method
 projeto02_generic_dao→  Generic DAO com Reflection (@TipoChave)
 projeto02_use_cases  →  Clean Use Cases + Custom Exceptions + CI/CD
 jdbc                 →  Raw SQL com ConnectionFactory + DAO
+javaee               →  Java Enterprise: JSF/PrimeFaces · CDI · EJB/JTA · laboratório planejado
 orm                  →  Pure JPA · Hibernate Session API · JDBI 3 · HikariCP
 java21               →  Virtual Threads · Modern Pattern Matching
 java25               →  Scoped Values · Flexible Constructors · Compact Source
