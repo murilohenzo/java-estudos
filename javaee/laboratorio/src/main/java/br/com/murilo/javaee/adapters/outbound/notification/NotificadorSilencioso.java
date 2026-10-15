@@ -1,6 +1,7 @@
-package br.com.murilo.javaee.infrastructure;
+package br.com.murilo.javaee.adapters.outbound.notification;
+import br.com.murilo.javaee.application.port.outbound.Simulado;
 
-import br.com.murilo.javaee.application.Notificador;
+import br.com.murilo.javaee.application.port.outbound.Notificador;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @Simulado
