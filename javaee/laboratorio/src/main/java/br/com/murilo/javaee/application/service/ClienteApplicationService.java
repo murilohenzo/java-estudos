@@ -6,6 +6,7 @@ import br.com.murilo.javaee.application.port.outbound.ClienteRepository;
 import br.com.murilo.javaee.application.port.outbound.PedidoRepository;
 import br.com.murilo.javaee.application.port.outbound.Notificador;
 import br.com.murilo.javaee.application.port.inbound.ClienteUseCase;
+import br.com.murilo.javaee.application.port.inbound.CasoDeUso;
 
 import br.com.murilo.javaee.domain.model.Cliente;
 import br.com.murilo.javaee.domain.model.Pedido;
@@ -14,6 +15,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
 
+@CasoDeUso
 @ApplicationScoped
 public class ClienteApplicationService implements ClienteUseCase {
     private final ClienteRepository clientes;
