@@ -36,7 +36,7 @@ Este módulo complementa os estudos já existentes de [ORM](../orm/README.md), [
 
 Os exemplos do guia usam `jakarta.*`; ao estudar aplicações Java EE 6/7/8, confira as versões do servidor, da API e das bibliotecas antes de transpor os exemplos.
 
-> **Status:** documentação de estudo e plano de implementação. **Existe implementação Maven/WAR e `compose.yaml` em `laboratorio/`, com GlassFish e PostgreSQL. O deploy permanece sem validação em runtime nesta revisão.** Os comandos e testes descritos no plano são atividades futuras e não representam funcionalidades já implementadas.
+> **Status:** documentação de estudo e plano de implementação. **Existe implementação Maven/WAR e `compose.yaml` em `laboratorio/`, com GlassFish e PostgreSQL. Build, deploy e página JSF foram validados em smoke test de CI; ações de negócio e transações ponta a ponta ainda exigem testes adicionais.** Os comandos e testes descritos no plano são atividades futuras e não representam funcionalidades já implementadas.
 
 ## Relação com a evolução do repositório
 

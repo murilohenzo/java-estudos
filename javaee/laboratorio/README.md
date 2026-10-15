@@ -109,4 +109,4 @@ Os testes H2/Hibernate **não substituem uma validação de deploy** no GlassFis
 
 ## Limitações de validação
 
-A implementação foi preparada para `mvn verify` e `docker compose up --build`, mas ainda **não foi testada em um runtime Docker/GlassFish real nesta sessão**. Caso o deploy falhe, consulte [troubleshooting](docs/04-exercicios-e-troubleshooting.md) e atualize a configuração conforme o log real. Não confundir configuração versionada com funcionamento verificado.
+**Validado no GitHub Actions:** `mvn clean verify` (JUnit + JPA/H2) e smoke de `docker compose up --build -d` usando GlassFish 7.1 + PostgreSQL, com HTTP 200 na página JSF. [Ver execução da CI](https://github.com/murilohenzo/java-estudos/actions/runs/38771867599). Isso confirma build, bootstrap e renderização inicial — **não** valida automaticamente todos os botões, commits de negócio ou cenários de rollback end-to-end. Essas verificações funcionais continuam no [roteiro de exercícios](docs/04-exercicios-e-troubleshooting.md).
