@@ -1,7 +1,10 @@
-package br.com.murilo.javaee.application;
+package br.com.murilo.javaee.application.service;
 
-import br.com.murilo.javaee.domain.Cliente;
-import br.com.murilo.javaee.infrastructure.NotificadorSilencioso;
+import br.com.murilo.javaee.domain.model.Cliente;
+import br.com.murilo.javaee.application.dto.NovoCliente;
+import br.com.murilo.javaee.application.port.outbound.ClienteRepository;
+import br.com.murilo.javaee.application.port.outbound.PedidoRepository;
+import br.com.murilo.javaee.adapters.outbound.notification.NotificadorSilencioso;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Optional;

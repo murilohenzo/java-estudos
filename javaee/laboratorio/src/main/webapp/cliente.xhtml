@@ -33,15 +33,15 @@
         </p:dataTable>
         <p:panelGrid columns="2">
             <p:outputLabel for="clienteId" value="ID do cliente"/>
-            <p:inputNumber id="clienteId" value="#{clienteBean.clienteId}"
+            <p:inputNumber id="clienteId" value="#{pedidoBean.clienteId}"
                            decimalPlaces="0" required="true"/>
             <p:outputLabel for="descricao" value="Descrição do pedido"/>
-            <p:inputText id="descricao" value="#{clienteBean.descricao}"
+            <p:inputText id="descricao" value="#{pedidoBean.descricao}"
                          required="true"/>
         </p:panelGrid>
-        <p:commandButton value="Criar pedido" action="#{clienteBean.criarPedido}"
+        <p:commandButton value="Criar pedido" action="#{pedidoBean.criarPedido}"
                          process="@form" update="@form :cadastro:mensagens"/>
-        <p:dataTable value="#{clienteBean.pedidos}" var="pedido"
+        <p:dataTable value="#{pedidoBean.pedidos}" var="pedido"
                      emptyMessage="Nenhum pedido selecionado">
             <p:column headerText="ID"><h:outputText value="#{pedido.id}"/></p:column>
             <p:column headerText="Descrição"><h:outputText value="#{pedido.descricao}"/></p:column>

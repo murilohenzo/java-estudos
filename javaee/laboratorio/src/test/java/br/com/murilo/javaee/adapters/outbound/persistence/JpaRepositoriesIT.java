@@ -1,6 +1,7 @@
-package br.com.murilo.javaee.infrastructure;
+package br.com.murilo.javaee.adapters.outbound.persistence;
 
-import br.com.murilo.javaee.domain.*;
+import br.com.murilo.javaee.domain.model.Cliente;
+import br.com.murilo.javaee.domain.model.ClienteExterno;
 import jakarta.persistence.*;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
