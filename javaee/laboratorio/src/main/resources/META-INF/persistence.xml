@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.1">
+  <persistence-unit name="estudosPU" transaction-type="JTA">
+    <jta-data-source>jdbc/EstudosDS</jta-data-source>
+    <class>br.com.murilo.javaee.domain.Cliente</class>
+    <class>br.com.murilo.javaee.domain.Pedido</class>
+    <class>br.com.murilo.javaee.domain.ClienteExterno</class>
+    <class>br.com.murilo.javaee.domain.RegistroAuditoria</class>
+    <properties>
+      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
