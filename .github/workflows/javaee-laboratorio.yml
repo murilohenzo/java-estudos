@@ -40,12 +40,12 @@ jobs:
         run: docker compose up --build -d
       - name: Wait for JSF page response
         run: |
-          for i in $(seq 1 72); do
+          for i in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:8080/javaee-laboratorio/cliente.xhtml | grep -q 'Cadastro de Clientes'; then
               echo "JSF page served successfully"
               exit 0
             fi
-            sleep 5
+            sleep 3
           done
           docker compose logs --tail=200 glassfish
           exit 1
