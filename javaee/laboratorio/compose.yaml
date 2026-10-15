@@ -1,0 +1,39 @@
+services:
+  banco:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: estudos_javaee
+      POSTGRES_USER: estudos
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-estudos_local}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U estudos -d estudos_javaee"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - javaee
+
+  glassfish:
+    build: .
+    environment:
+      DB_HOST: banco
+      DB_PORT: "5432"
+      DB_NAME: estudos_javaee
+      DB_USER: estudos
+      DB_PASSWORD: ${DB_PASSWORD:-estudos_local}
+    depends_on:
+      banco:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:4848:4848"
+    networks:
+      - javaee
+
+networks:
+  javaee:
+
+volumes:
+  postgres_data:
