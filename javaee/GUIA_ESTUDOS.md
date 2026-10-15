@@ -1,4 +1,4 @@
-# Guia de estudos — Java EE / Jakarta EE para prova técnica (Portugal)
+# Guia de estudos — Java EE / Jakarta EE
 
 > **Escopo:** JSF / PrimeFaces, Managed Beans, CDI, EJB, JPA / Hibernate, SQL / JOIN, JDBC, transações, GlassFish, Swing, SVN e análise de sistemas legados.  
 > **Formato:** teoria aplicada + leitura de código + pegadinhas + questões de prova + gabarito comentado.  
