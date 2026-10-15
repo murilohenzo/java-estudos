@@ -1,6 +1,6 @@
-package br.com.murilo.javaee.ejb;
+package br.com.murilo.javaee.adapters.inbound.ejb;
 
-import br.com.murilo.javaee.domain.RegistroAuditoria;
+import br.com.murilo.javaee.domain.model.RegistroAuditoria;
 import jakarta.ejb.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

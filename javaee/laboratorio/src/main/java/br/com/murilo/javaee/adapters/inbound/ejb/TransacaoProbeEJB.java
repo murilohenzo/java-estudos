@@ -1,4 +1,4 @@
-package br.com.murilo.javaee.ejb;
+package br.com.murilo.javaee.adapters.inbound.ejb;
 
 import jakarta.ejb.*;
 import jakarta.annotation.Resource;

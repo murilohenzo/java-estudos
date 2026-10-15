@@ -1,8 +1,15 @@
-package br.com.murilo.javaee.application;
+package br.com.murilo.javaee.application.service;
+import br.com.murilo.javaee.application.dto.NovoCliente;
+import br.com.murilo.javaee.application.dto.ClienteResumo;
+import br.com.murilo.javaee.application.dto.PedidoResumo;
+import br.com.murilo.javaee.application.port.outbound.ClienteRepository;
+import br.com.murilo.javaee.application.port.outbound.PedidoRepository;
+import br.com.murilo.javaee.application.port.outbound.Notificador;
+import br.com.murilo.javaee.application.port.inbound.ClienteUseCase;
 
-import br.com.murilo.javaee.domain.Cliente;
-import br.com.murilo.javaee.domain.Pedido;
-import br.com.murilo.javaee.infrastructure.Operacional;
+import br.com.murilo.javaee.domain.model.Cliente;
+import br.com.murilo.javaee.domain.model.Pedido;
+import br.com.murilo.javaee.adapters.outbound.notification.Operacional;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;

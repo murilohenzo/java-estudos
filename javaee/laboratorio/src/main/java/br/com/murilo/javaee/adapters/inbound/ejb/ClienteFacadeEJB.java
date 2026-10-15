@@ -1,6 +1,10 @@
-package br.com.murilo.javaee.ejb;
+package br.com.murilo.javaee.adapters.inbound.ejb;
+import br.com.murilo.javaee.application.dto.NovoCliente;
+import br.com.murilo.javaee.application.dto.ClienteResumo;
+import br.com.murilo.javaee.application.dto.PedidoResumo;
+import br.com.murilo.javaee.application.port.inbound.ClienteBoundary;
+import br.com.murilo.javaee.application.port.inbound.ClienteUseCase;
 
-import br.com.murilo.javaee.application.*;
 import jakarta.ejb.*;
 import jakarta.inject.Inject;
 import java.util.List;
