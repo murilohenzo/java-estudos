@@ -1,7 +1,8 @@
-package br.com.murilo.javaee.infrastructure;
+package br.com.murilo.javaee.adapters.outbound.persistence;
 
-import br.com.murilo.javaee.application.*;
-import br.com.murilo.javaee.domain.Cliente;
+import br.com.murilo.javaee.application.port.outbound.ClienteRepository;
+import br.com.murilo.javaee.application.dto.ClienteResumo;
+import br.com.murilo.javaee.domain.model.Cliente;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -31,7 +32,7 @@ public class JpaClienteRepository implements ClienteRepository {
     @Override
     public List<ClienteResumo> listar() {
         return manager.createQuery("""
-                select new br.com.murilo.javaee.application.ClienteResumo(c.id, c.nome, c.email)
+                select new br.com.murilo.javaee.application.dto.ClienteResumo(c.id, c.nome, c.email)
                 from Cliente c order by c.nome
                 """, ClienteResumo.class).getResultList();
     }

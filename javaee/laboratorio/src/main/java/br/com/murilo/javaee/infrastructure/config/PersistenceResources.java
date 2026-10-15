@@ -1,4 +1,4 @@
-package br.com.murilo.javaee.infrastructure;
+package br.com.murilo.javaee.infrastructure.config;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;

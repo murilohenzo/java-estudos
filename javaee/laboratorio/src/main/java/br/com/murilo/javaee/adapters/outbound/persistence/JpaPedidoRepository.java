@@ -1,7 +1,8 @@
-package br.com.murilo.javaee.infrastructure;
+package br.com.murilo.javaee.adapters.outbound.persistence;
 
-import br.com.murilo.javaee.application.*;
-import br.com.murilo.javaee.domain.Pedido;
+import br.com.murilo.javaee.application.port.outbound.PedidoRepository;
+import br.com.murilo.javaee.application.dto.PedidoResumo;
+import br.com.murilo.javaee.domain.model.Pedido;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class JpaPedidoRepository implements PedidoRepository {
     @Override
     public List<PedidoResumo> listarPorCliente(Long clienteId) {
         return manager.createQuery("""
-                select new br.com.murilo.javaee.application.PedidoResumo(p.id, p.descricao)
+                select new br.com.murilo.javaee.application.dto.PedidoResumo(p.id, p.descricao)
                 from Pedido p where p.cliente.id = :clienteId order by p.id
                 """, PedidoResumo.class)
                 .setParameter("clienteId", clienteId).getResultList();
