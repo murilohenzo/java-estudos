@@ -1,101 +1,112 @@
-# Laboratório Java EE / Jakarta EE — MVC
+# Laboratório Java EE / Jakarta EE — MVC com GlassFish
 
-Implementação didática de **cadastro de clientes e pedidos** usando **Jakarta EE 10, JSF/PrimeFaces, CDI, EJB, JPA e GlassFish 7**. O laboratório é independente dos projetos existentes no repositório.
+Projeto de estudos completo para compreender **JSF/PrimeFaces, CDI, EJB, JPA/JDBC e transações** com exemplos simples de cadastro de clientes e pedidos.
 
-## Arquitetura
+**Stack de laboratório:** Java 17, Jakarta EE 10, GlassFish 7.1, PrimeFaces 14, Maven, PostgreSQL 16, JUnit 5, Mockito, Hibernate/H2 nos testes.
 
-```mermaid
-flowchart TB
-    UI["View: cliente.xhtml / PrimeFaces"] --> CTRL["Controller: ClienteBean"]
-    CTRL --> PORT["ClienteBoundary (porta de entrada)"]
-    PORT --> EJB["ClienteFacadeEJB: CMT REQUIRED"]
-    EJB --> SERVICE["ClienteApplicationService: regra de negócio"]
-    SERVICE --> REPOS["ClienteRepository / PedidoRepository (portas)"]
-    REPOS --> ADAPTERS["JpaClienteRepository / JpaPedidoRepository"]
-    ADAPTERS --> JPA["EntityManager JTA / DataSource"]
-    JPA --> DB[("PostgreSQL")]
-    EJB --> AUD["AuditoriaEJB: REQUIRES_NEW"]
-```
+> Esta seção contém código de estudo, não uma aplicação pronta para produção. O objetivo é enxergar exatamente o papel de cada componente do servidor.
 
-**MVC:** View = XHTML; Controller = `ClienteBean`; Model = entidades, serviços e contratos de aplicação. **DIP:** o serviço depende das interfaces `ClienteRepository`, `PedidoRepository` e `Notificador`, nunca de implementações JPA. **SRP:** cada classe é responsável por um conceito. Todas as classes Java têm **até 80 linhas**, com teste arquitetural de proteção.
+## Comece aqui: trilha bem explicada
 
-## Injeção de dependências: exceções necessárias
+| Ordem | Documento | Você vai aprender |
+|---|---|---|
+| 1 | [Glossário explicado do zero](docs/01-glossario-jakarta-ee-dummy.md) | O que é cada tecnologia, como interage e quando usar |
+| 2 | [Arquitetura MVC, SRP e DIP](docs/02-arquitetura-mvc-srp-dip.md) | Por que cada pacote existe e como funcionam as dependências |
+| 3 | [Executando GlassFish com Docker](docs/03-como-executar-glassfish.md) | Subir servidor, banco, driver, DataSource e WAR |
+| 4 | [Exercícios, testes e troubleshooting](docs/04-exercicios-e-troubleshooting.md) | Praticar fluxo real, transações e investigação de erros |
+| 5 | [Guia completo da prova Portugal](../GUIA_ESTUDOS_PROVA_PORTUGAL.md) | 11 perguntas relatadas, revisão teórica e simulado |
 
-- **Classes de aplicação e repositórios:** injeção explícita pelo **construtor `@Inject`**, com dependências `final`. O construtor protegido sem argumentos existe apenas para compatibilidade CDI/JPA com proxies e instanciação.
-- **EJBs:** `@Stateless` exige construtor público sem argumentos; a injeção na borda usa `@Inject`/`@EJB` em campos. O código de negócio efetivo é delegado a objetos com injeção por construtor.
-- **JPA:** `@PersistenceContext` é recurso gerenciado pelo servidor, exposto por um produtor CDI para injeção por construtor nos repositórios.
-- **Entidades JPA:** possuem construtores sem argumentos por exigência da especificação.
+## Execute o laboratório com um comando
 
-Essas exceções são limitações explícitas do modelo de contêiner, e **não foram escondidas para simular 100% de injeção por construtor**.
-
-## Requisitos
-
-- Java **17+**, Maven **3.9+**, GlassFish **7.0.x** (Jakarta EE 10).
-- PostgreSQL (exemplo: localhost:5432, database `estudos_javaee`).
-- Driver PostgreSQL JDBC instalado na instância GlassFish.
-
-> O `persistence.xml` usa `schema-generation.database.action=create`: **somente em banco descartável de desenvolvimento**. Não utilizar em produção.
-
-## Preparar banco e GlassFish
-
-Crie um usuário/banco local de estudos no PostgreSQL e ajuste a URL/senha:
+Requer **Docker + Compose v2**:
 
 ```bash
-createdb estudos_javaee
-
-# Executar após instalar o driver JDBC PostgreSQL em GlassFish e reiniciar o domínio.
-asadmin start-domain domain1
-asadmin create-jdbc-connection-pool \
-  --datasourceclassname org.postgresql.ds.PGSimpleDataSource \
-  --restype javax.sql.DataSource \
-  --property user=postgres:password=postgres:databaseName=estudos_javaee:serverName=localhost:portNumber=5432 \
-  EstudosPool
-asadmin create-jdbc-resource --connectionpoolid EstudosPool jdbc/EstudosDS
-asadmin ping-connection-pool EstudosPool
+cd javaee/laboratorio
+cp .env.example .env
+docker compose up --build
 ```
 
-No caso de senha contendo caracteres especiais, consulte a sintaxe de escape de propriedades do `asadmin`. Não armazene credenciais reais em scripts versionados.
+O Dockerfile compila o WAR e usa a **imagem oficial do Eclipse GlassFish 7.1.0**. A inicialização configura o driver JDBC e o recurso JNDI **`jdbc/EstudosDS`**, aguardando o banco PostgreSQL.
 
-## Build, testes e deploy
+**Interface web:** http://localhost:8080/javaee-laboratorio/cliente.xhtml
+
+**Console GlassFish:** https://localhost:4848 (somente loopback; senha de desenvolvimento conforme imagem).
+
+Para parar: `docker compose down`. Para apagar o volume do banco: `docker compose down -v` — apaga dados.
+
+**Atenção:** o schema JPA está no modo de geração `create`: **o deploy pode recriar tabelas**. Não execute com dados importantes.
+
+## Arquitetura em uma figura
+
+```mermaid
+flowchart LR
+    X["cliente.xhtml (View)"] --> B["ClienteBean/PedidoBean (Controller)"]
+    B --> E["ClienteBoundary -> EJB (transação)"]
+    E --> S["ClienteApplicationService (casos de uso)"]
+    S --> I["ClienteRepository/PedidoRepository (interfaces)"]
+    J["Adaptadores JPA"] -.->|implementam| I
+    J --> EM["EntityManager JTA"] --> DB[("PostgreSQL")]
+    E --> A["AuditoriaEJB REQUIRES_NEW"]
+```
+
+### Estrutura dos pacotes
+
+```text
+br/com/murilo/javaee/
+├── domain/model/               # Cliente, Pedido, RegistroAuditoria, ClienteExterno
+├── application/
+│   ├── dto/                    # Transporte entre camadas (records)
+│   ├── port/inbound/           # Contratos invocados pela interface
+│   ├── port/outbound/          # Contratos de persistência e notificação
+│   └── service/                # Implementação das regras de cadastro
+├── adapters/
+│   ├── inbound/web/           # Controllers JSF
+│   ├── inbound/ejb/           # Fachada transacional e auditoria
+│   ├── outbound/persistence/  # Implementações JPA das portas
+│   └── outbound/notification/ # Implementações de Notificador
+└── infrastructure/config/     # Producer do EntityManager
+```
+
+**SRP:** cada controller cuida apenas de sua tela; repositórios cuidam da persistência; serviço cuida dos casos de uso. **DIP:** serviço depende de contratos de porta, não de implementações JPA. **DI por construtor:** aplicada no serviço, repositórios e controllers; limites de instanciação do contêiner em EJB/JPA estão documentados.
+
+**Todas as classes Java até 80 linhas**, protegidas por `ArchitectureTest`.
+
+## Testes automatizados
+
+Com Maven e JDK 17 instalados localmente:
 
 ```bash
 cd javaee/laboratorio
 mvn clean verify
-asadmin deploy --force=true target/javaee-laboratorio.war
 ```
 
-Depois, abra `http://localhost:8080/javaee-laboratorio/cliente.xhtml`.
-
-O teste de integração `JpaRepositoriesIT` é executado pelo **Failsafe** na fase `verify`, em H2 (RESOURCE_LOCAL). Testes unitários e o limite de 80 linhas rodam pelo **Surefire** na fase `test`.
-
-> Não é possível afirmar que o WAR esteja validado em servidor real sem executar o Maven, disponibilizar um GlassFish e efetuar deploy. Os testes de JPA local não substituem os testes de contêiner EJB/CDI/JSF.
-
-## Funcionalidades já implementadas
-
-| Função | Como estudar |
+| Teste | Propósito |
 |---|---|
-| Cadastrar/listar clientes | `<h:form>`, `action`, `actionListener`, DTO de leitura |
-| Criar/listar pedidos | `@OneToMany`, `@ManyToOne`, JPA e consultas |
-| Simular falha | `REQUIRED` com rollback e auditoria `REQUIRES_NEW` |
-| Explorar CDI | `@Qualifier` em dois `Notificador` |
-| Explorar FIELD/PROPERTY | `Cliente` versus `ClienteExterno` |
-| Explorar atributos CMT | `TransacaoProbeEJB` (seis opções) |
-| Verificar regras | `ArchitectureTest` e testes Given/When/Then |
+| `ClienteApplicationServiceTest` | Regras de cadastro e dependências mockadas |
+| `JpaRepositoriesIT` | Integração JPA/SQL com H2 e Hibernate |
+| `ArchitectureTest` | Máximo 80 linhas e isolamento dos serviços |
 
-## Roteiro manual E2E
+Os testes H2/Hibernate **não substituem uma validação de deploy** no GlassFish/EclipseLink. Para exercitar EJBs e JSF, execute o Compose e siga o roteiro manual no documento 04.
 
-1. Abrir formulário e tentar salvar com e-mail inválido: deve bloquear antes da action.
-2. Salvar cliente válido e conferir tabela: JSF → EJB → service → JPA.
-3. Criar pedido para ID existente; conferir pedidos.
-4. Usar a ação de rollback: a aplicação simula exceção; auditoria independente deve persistir, enquanto o cliente temporário não deve aparecer na tabela.
-5. Consultar logs de SQL/JTA do GlassFish e registros da tabela `registros_auditoria`.
-6. Inspecionar o `TransacaoProbeEJB` através de invocações gerenciadas, alterando o contexto transacional (não chamar diretamente `new`).
+## Funcionalidades para experimentar
 
-## O que ainda depende de ambiente externo
+- Formulário `<h:form>` com validações e Action/ActionListener.
+- Duas interfaces de controller (`ClienteBean` e `PedidoBean`) na mesma página XHTML.
+- Cadastro/listagem de clientes; cadastro/consulta de pedidos com `@ManyToOne`.
+- Duas implementações do notificador diferenciadas por Qualifier CDI.
+- Demonstração `@Id` no getter e identificador não gerado (`ClienteExterno`).
+- Demonstração `REQUIRED` e `REQUIRES_NEW` no fluxo com erro.
+- `TransacaoProbeEJB` expõe os seis atributos transacionais para estudos futuros de integração com contêiner.
 
-- Configuração e testes reais de GlassFish + PostgreSQL.
-- Suite automatizada de contêiner para os seis atributos transacionais.
-- Teste web E2E com navegador.
-- Load testing/pool, análise de SQL N+1 e batch fetch, a serem adicionados em exercícios posteriores.
+## Critérios de qualidade
 
-Veja também [plano original](../PLANO_PRATICO.md) e [guia teórico](../GUIA_ESTUDOS_PROVA_PORTUGAL.md).
+- MVC, SRP e DIP descritos com exemplos e nomes reais de classes.
+- Infraestrutura containerizada separada dos casos de uso.
+- Injeção por construtor onde compatível com o modelo de vida do componente.
+- Arquivos Java de no máximo 80 linhas.
+- Nenhum segredo real no repositório: `.env` ignorado.
+- Separação explícita entre testes de negócio, JPA e testes de contêiner ainda pendentes.
+
+## Limitações de validação
+
+A implementação foi preparada para `mvn verify` e `docker compose up --build`, mas ainda **não foi testada em um runtime Docker/GlassFish real nesta sessão**. Caso o deploy falhe, consulte [troubleshooting](docs/04-exercicios-e-troubleshooting.md) e atualize a configuração conforme o log real. Não confundir configuração versionada com funcionamento verificado.
