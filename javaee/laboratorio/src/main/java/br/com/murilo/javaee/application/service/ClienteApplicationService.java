@@ -9,7 +9,7 @@ import br.com.murilo.javaee.application.port.inbound.ClienteUseCase;
 
 import br.com.murilo.javaee.domain.model.Cliente;
 import br.com.murilo.javaee.domain.model.Pedido;
-import br.com.murilo.javaee.adapters.outbound.notification.Operacional;
+import br.com.murilo.javaee.application.port.outbound.Operacional;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.List;
