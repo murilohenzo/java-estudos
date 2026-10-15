@@ -1,4 +1,4 @@
-package br.com.murilo.javaee.domain;
+package br.com.murilo.javaee.domain.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
