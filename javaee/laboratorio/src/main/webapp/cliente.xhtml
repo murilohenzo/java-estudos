@@ -13,7 +13,7 @@
             <p:inputText id="nome" value="#{clienteBean.nome}" required="true"/>
             <p:outputLabel for="email" value="E-mail"/>
             <p:inputText id="email" value="#{clienteBean.email}" required="true">
-                <f:validateRegex pattern="[^@ ]+@[^@ ]+\.[^@ ]+"/>
+                <f:validateRegex pattern="[^@ ]+@[^@ ]+[.][^@ ]+"/>
             </p:inputText>
         </p:panelGrid>
         <p:commandButton value="Salvar" action="#{clienteBean.salvar}"
