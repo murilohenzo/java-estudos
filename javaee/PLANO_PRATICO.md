@@ -1,6 +1,8 @@
 # Plano prático — Laboratório Java EE / Jakarta EE
 
-Este é um **plano de exercícios**, não um projeto pronto. Consulte o [guia principal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
+**Situação atual:** o código e o ambiente GlassFish/PostgreSQL com Docker Compose estão versionados em [laboratorio/](./laboratorio/README.md). Os itens abaixo continuam como roteiro de validação e aprofundamento: a existência da implementação não equivale a testes E2E aprovados.
+
+Este era o **plano inicial de exercícios**. Os artefatos principais agora existem, mas a execução em contêiner ainda precisa ser confirmada. Consulte o [guia principal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
 
 ## Caso de uso
 
@@ -109,4 +111,4 @@ flowchart LR
 
 ## Próximo passo sugerido
 
-Quando iniciar a implementação, criar um subdiretório `javaee/laboratorio/` com projeto Maven executável, deixando este documento como backlog e registrando a configuração efetivamente testada.
+O código foi criado em [`javaee/laboratorio/`](./laboratorio/README.md). Próximo passo: executar `docker compose up --build`, validar os cenários manuais e automatizar testes em contêiner de aplicação.

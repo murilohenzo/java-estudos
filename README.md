@@ -44,6 +44,7 @@ java-estudos/
 ├── jdbc/                         # JDBC: DriverManager, PreparedStatement, ConnectionFactory, DAO
 │
 ├── javaee/                      # Java EE / Jakarta EE: JSF, CDI, EJB, JPA e prova técnica
+│   ├── laboratorio/             #   MVC + GlassFish/PostgreSQL (Docker Compose)
 │   ├── README.md                #   Trilha de navegação e referências
 │   ├── GUIA_ESTUDOS_PROVA_PORTUGAL.md  # Teoria, simulado e gabarito
 │   └── PLANO_PRATICO.md         #   Roteiro de laboratório (planejado)
@@ -97,7 +98,7 @@ java-estudos/
 
 | Módulo | Tópico | Conceitos-chave |
 |--------|--------|-----------------|
-| [javaee](./javaee/README.md) | Java EE / Jakarta EE | [Guia da prova Portugal](./javaee/GUIA_ESTUDOS_PROVA_PORTUGAL.md) · JSF/PrimeFaces · CDI · EJB/CMT · JPA · [Laboratório](./javaee/PLANO_PRATICO.md) |
+| [javaee](./javaee/README.md) | Java EE / Jakarta EE | [Guia da prova Portugal](./javaee/GUIA_ESTUDOS_PROVA_PORTUGAL.md) · [Tutorial didático](./javaee/laboratorio/docs/01-glossario-jakarta-ee-dummy.md) · [Laboratório com GlassFish](./javaee/laboratorio/README.md) |
 
 ### Java LTS e Engenharia
 
