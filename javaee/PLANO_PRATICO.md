@@ -2,7 +2,7 @@
 
 **Situação atual:** o código e o ambiente GlassFish/PostgreSQL com Docker Compose estão versionados em [laboratorio/](./laboratorio/README.md). Os itens abaixo continuam como roteiro de validação e aprofundamento: a existência da implementação não equivale a testes E2E aprovados.
 
-Este era o **plano inicial de exercícios**. Os artefatos principais agora existem, mas a execução em contêiner ainda precisa ser confirmada. Consulte o [guia principal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
+Este era o **plano inicial de exercícios**. Os artefatos principais agora existem, mas o smoke de contêiner (GlassFish/JSF) passou na CI, mas os fluxos de usuário e cenários transacionais completos ainda precisam de validação funcional. Consulte o [guia principal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
 
 ## Caso de uso
 

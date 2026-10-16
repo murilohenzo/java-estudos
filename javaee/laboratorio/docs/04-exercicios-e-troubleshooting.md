@@ -83,7 +83,7 @@ flowchart TD
 |---|---|
 | `ClassNotFoundException` do driver JDBC | JAR PostgreSQL no domínio GlassFish |
 | `NameNotFoundException jdbc/EstudosDS` | Inicialização do recurso via `init.sh` |
-| Falha de CDI/deployment | Beans ambíguos, proxies, construtores e Qualifiers |
+| Falha de CDI/deployment | Beans ambíguos, proxies, construtores e Qualifiers (ex.: WELD-001409) |
 | `MethodNotFoundException` do JSF | Nome do bean e expressão EL na action |
 | Botão não chama método | `h:form`, validações, `process`, escopo |
 | Entidade não encontrada | Mapeamento PK/JPA, transação e esquema |

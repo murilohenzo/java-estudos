@@ -125,6 +125,14 @@ A anotação `@Inject` pede ao contêiner que encontre os beans adequados. `@Ope
 
 `@ApplicationScoped` **não é exatamente o padrão de projeto Singleton**: o contêiner mantém uma instância contextual compartilhada, frequentemente acessada por proxy, com regras próprias de ciclo de vida.
 
+### Quando duas classes implementam a mesma interface
+
+Se o CDI encontra mais de um bean elegível para um ponto de injeção, pode lançar `WELD-001409: Ambiguous dependencies`. Neste laboratório, tanto o serviço CDI quanto a fachada EJB são compatíveis com a interface `ClienteUseCase`, pois `ClienteBoundary` a estende.
+
+A solução é **explicitar a intenção** com `@CasoDeUso`: a implementação `ClienteApplicationService` recebe o qualifier e a fachada EJB solicita `@Inject @CasoDeUso ClienteUseCase`. O tipo injetado **continua sendo a interface** e o princípio DIP é preservado.
+
+Esse diagnóstico vem de um erro reproduzido no smoke test real do GlassFish e corrigido com um qualifier específico, em vez de forçar a injeção do tipo concreto.
+
 ## 6. EJB: por que usar se já existe um Service?
 
 O EJB serve como **fronteira de serviços do contêiner**. Ele permite delegar transações, segurança e ciclo de vida ao servidor. O `ClienteFacadeEJB` é o adaptador que inicia/participa de transação e delega a regra ao `ClienteApplicationService`.

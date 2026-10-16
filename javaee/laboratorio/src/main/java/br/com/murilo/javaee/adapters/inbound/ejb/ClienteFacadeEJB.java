@@ -4,6 +4,7 @@ import br.com.murilo.javaee.application.dto.ClienteResumo;
 import br.com.murilo.javaee.application.dto.PedidoResumo;
 import br.com.murilo.javaee.application.port.inbound.ClienteBoundary;
 import br.com.murilo.javaee.application.port.inbound.ClienteUseCase;
+import br.com.murilo.javaee.application.port.inbound.CasoDeUso;
 
 import jakarta.ejb.*;
 import jakarta.inject.Inject;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ClienteFacadeEJB implements ClienteBoundary {
     // O EJB exige construtor público sem argumentos: injeção do contêiner na borda.
     @Inject
+    @CasoDeUso
     private ClienteUseCase service;
     @EJB
     private AuditoriaEJB auditoria;
