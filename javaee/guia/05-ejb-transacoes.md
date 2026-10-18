@@ -2,6 +2,19 @@
 
 [← Índice](README.md) · [← CDI](04-cdi-injecao.md) · [Persistência →](06-persistencia-jpa-jdbc.md)
 
+## Antes de começar: você não precisa de EJB apenas para realizar transações
+
+Uma operação como `cadastrarCliente()` pode usar **CDI + `jakarta.transaction.Transactional`**, sem EJB. Escolha EJB quando houver uma necessidade real de recursos Enterprise Beans ou quando estiver evoluindo uma aplicação que já usa essas fronteiras. No laboratório, EJB foi mantido **para aprender CMT e `REQUIRES_NEW`**.
+
+**Nunca compare anotações sem verificar o pacote:**
+- `@ApplicationScoped` CDI: escopo/injeção; **não cria transação**.
+- `@Stateless` EJB: session bean, por padrão com CMT/REQUIRED.
+- `@TransactionAttribute(REQUIRED)` EJB: define propagação CMT.
+- `@Transactional(REQUIRED)` de **Jakarta Transactions**: interceptor transacional aplicável ao CDI sem exigir EJB.
+- `@Transactional` **Spring**: mecanismo Spring distinto.
+
+**Veja primeiro:** [guia CDI/EJB/JTA com diagramas, duas arquiteturas, impacts e respostas comentadas](11-cdi-ejb-transacoes-sem-confusao.md).
+
 ## 1. Por que EJB existe?
 
 **Explicação simples:** um EJB (*Enterprise JavaBean*) é um componente de negócio que o **servidor de aplicações gerencia**. Além de chamar métodos Java, o servidor pode controlar transações, acesso local/remoto, segurança, concorrência e ciclo de vida do componente.

@@ -93,6 +93,23 @@ sequenceDiagram
 
 Em Spring MVC, o `DispatcherServlet` orquestra mappings, resolvers e adaptadores; um método `@Controller` costuma receber parâmetros de requisição já convertidos e validados via binding e Bean Validation, sem árvore de componentes JSF.
 
+## 3.1 Duas maneiras de chamar o service no Jakarta EE
+
+O diagrama acima mostra o **fluxo escolhido no laboratório**: o EJB é fronteira CMT e o service CDI é executado dentro dessa transação. **Esse EJB não é obrigatório**. Alternativamente, o JSF Controller pode chamar diretamente um `ClienteUseCase` implementado por CDI, cujo método tenha `jakarta.transaction.Transactional(REQUIRED)`.
+
+```mermaid
+flowchart LR
+  V["Controller JSF"] --> D{"Estratégia de transação"}
+  D --> A["CDI @Transactional: limite no service"]
+  D --> B["EJB @Stateless CMT: limite na fachada"]
+  B --> C["CDI service sem nova demarcação"]
+  A --> R["Repository"]
+  C --> R
+  R --> DB[("Banco")]
+```
+
+**Não misture sem motivo** `@Transactional(REQUIRES_NEW)` no service com `REQUIRED` na fachada: isso mudaria a unidade de commit, pois a operação interna ganharia outra transação. Estude a [tabela de decisão CDI/EJB/JTA](11-cdi-ejb-transacoes-sem-confusao.md).
+
 ## 4. Dois exemplos da mesma operação
 
 **Jakarta Faces:**

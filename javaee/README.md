@@ -4,6 +4,14 @@
 
 A proposta é construir um **modelo mental de execução**: a requisição chega ao servidor, o JSF recebe e valida o formulário, o bean chama o caso de uso, o EJB coordena a transação e o JPA persiste dados. Cada capítulo mostra os paralelos e as diferenças com Spring.
 
+## Comece por esta distinção
+
+**[CDI × EJB × JTA: quando usar cada um e quando uma transação começa](./guia/11-cdi-ejb-transacoes-sem-confusao.md)**
+
+Não precisa adicionar `@Stateless` para criar um service com injeção de dependências. Um CDI bean pode usar `@Transactional` Jakarta para operações atômicas. Se a aplicação escolhe uma fachada EJB com CMT, a transação pode ser definida nela e o service CDI apenas executa as regras.
+
+**Regra de leitura:** `@ApplicationScoped` = ciclo de vida; `@Inject` = dependência; `@Stateless` = Enterprise Bean; `@TransactionAttribute` (EJB) ou `jakarta.transaction.Transactional` (CDI) = demarcação transacional.
+
 ## Comece pela nova trilha
 
 **[→ Abrir a trilha de dez capítulos: Spring × Java EE / Jakarta EE](./guia/README.md)**
@@ -20,6 +28,7 @@ A proposta é construir um **modelo mental de execução**: a requisição chega
 | 8 | Executar, investigar falhas e testar ponta a ponta | [Laboratório guiado](./guia/08-laboratorio-troubleshooting.md) |
 | 9 | Servlet, REST, Validation, Security, JMS, JSON-B/P, Concurrency e Batch | [Outras especificações](./guia/09-especificacoes-complementares.md) |
 | 10 | A mesma feature implementada conceitualmente em Spring e Jakarta EE | [Comparativo completo](./guia/10-mesma-feature-spring-jakarta.md) |
+| **11** | **Quando CDI basta, quando EJB faz sentido e o efeito das transações** | **[Guia decisório CDI/EJB/JTA](./guia/11-cdi-ejb-transacoes-sem-confusao.md)** |
 
 ## Fluxo MVC de referência
 

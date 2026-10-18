@@ -4,6 +4,14 @@
 
 > **Objetivo:** sair das anotações isoladas e entender o mesmo cadastro de clientes nas duas plataformas, identificando o que é responsabilidade do framework, da aplicação e do servidor.
 
+## Antes de comparar: duas arquiteturas Java EE possíveis
+
+Este capítulo mostra a abordagem **EJB CMT na fronteira + service CDI**, porque ela corresponde ao laboratório. Entretanto, uma alternativa mais enxuta é colocar `jakarta.transaction.Transactional(REQUIRED)` no **service CDI** e **não criar uma fachada EJB**. O commit/rollback acontece na fronteira escolhida.
+
+Na comparação Spring, `@Service` também não cria transação por conta própria; é o `@Transactional` do framework (com TransactionManager e chamada interceptada) que define o limite.
+
+Para decidir entre essas opções, consulte [CDI × EJB × JTA](11-cdi-ejb-transacoes-sem-confusao.md).
+
 ## 1. Enunciado de negócio
 
 Criar um cadastro de clientes com:

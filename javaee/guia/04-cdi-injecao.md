@@ -2,6 +2,26 @@
 
 [← Índice](README.md) · [← JSF](03-jsf-primefaces.md) · [EJB →](05-ejb-transacoes.md)
 
+## Antes de começar: CDI não é EJB e não significa transação
+
+**CDI** oferece descoberta, dependências, contextos e interceptores. **EJB** é outro modelo de componente do contêiner. Para um service de negócio comum, `@ApplicationScoped` pode ser suficiente se não há operação atômica a demarcar.
+
+Quando precisa de transação, a escolha mais direta **sem EJB** é `jakarta.transaction.Transactional` no caso de uso gerenciado CDI:
+
+```java
+@ApplicationScoped
+public class CadastroService {
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void cadastrar(NovoCliente dados) {
+        // Chama repositórios: mesmo contexto T1
+    }
+}
+```
+
+**No laboratório**, a transação é definida de outra maneira: a fachada `@Stateless` EJB usa CMT `REQUIRED` e chama um service CDI **sem `@Transactional`**. Os dois desenhos são válidos; não os junte automaticamente.
+
+Leia a [decisão CDI × EJB × JTA](11-cdi-ejb-transacoes-sem-confusao.md) antes dos detalhes de `@Inject`.
+
 ## 1. Por que injeção de dependência?
 
 **Explicação simples:** imagine que `ClienteService` precisa salvar um cliente. Ele não deveria criar manualmente um objeto especializado em banco de dados; deve receber alguém capaz de **salvar clientes**, por meio de uma interface.
