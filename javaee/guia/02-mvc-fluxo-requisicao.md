@@ -173,9 +173,25 @@ flowchart TB
     E --> DB[("Persistência")]
 ```
 
-## 6. Exercício: descubra a camada do problema
+## 6. Perguntas de diagnóstico com gabarito comentado
 
-Se um formulário não chama a action, **investigue primeiro JSF**: `h:form`, conversão, validação e `process`, antes de modificar Repository. Se action executa mas não há INSERT, **investigue service/JPA/transação**. Se SQL executa e a tela não atualiza, **investigue renderização e escopo do bean**.
+**1. O botão JSF foi clicado, mas `salvar()` não foi executado. Onde investigar primeiro?**  
+**Resposta:** no **lifecycle JSF**: formulário `h:form`, conversões, validações, `process`, resolução EL e escopo. Uma falha de validação pode impedir a fase Invoke Application mesmo quando houve POST HTTP.
+
+**2. Em Spring MVC, qual componente recebe a requisição antes do `@Controller`?**  
+**Resposta:** o `DispatcherServlet`, responsável por encaminhar a requisição para o handler adequado e coordenar a infraestrutura MVC.
+
+**3. No JSF, `ClienteBean` substitui o `FacesServlet`?**  
+**Resposta:** não. O `FacesServlet` é o front controller da tecnologia; o bean contém ações e propriedades específicas daquela tela.
+
+**4. Onde deve estar a transação de cadastrar cliente e pedido?**  
+**Resposta:** na fronteira do caso de uso: **CDI `@Transactional` ou EJB CMT REQUIRED**, não obrigatoriamente no controller JSF. Os repositórios participam da transação iniciada no serviço/fachada.
+
+**5. Houve SQL, mas nenhum dado permaneceu no banco. Isso prova falha de JPA?**  
+**Resposta:** não. Pode ter ocorrido `flush` seguido de **rollback**; é necessário conferir limites transacionais, logs e exceções.
+
+**6. A action funcionou, mas a tabela visual não atualizou. Onde olhar?**  
+**Resposta:** no resultado de renderização JSF, em `update` AJAX, IDs de componentes, no escopo do bean e na view restaurada, antes de atribuir o problema à persistência.
 
 ## Fontes
 

@@ -244,13 +244,25 @@ docker compose up --build
 | HTTP 404 | Context root, deployment falhou, path incorreto |
 | HTTP 500 | Logs JSF, CDI, EJB, JPA, aplicação |
 
-## 9. Questões de fixação
+## 9. Questões de fixação com respostas
 
-1. Um WAR contém executável do GlassFish? **Não**. Ele contém a aplicação, enquanto o servidor é o runtime.
-2. Um `@Stateless` exige EAR? **Não**, pode estar em WAR suportado.
-3. O `jakarta.jakartaee-api` deve ficar em WEB-INF/lib? **Geralmente não** quando o GlassFish a fornece (`provided`).
-4. Que pacote contém várias unidades (WAR/EJB JAR) numa aplicação empresarial? **EAR**.
-5. Qual diferença entre `mvn package` e `asadmin deploy`? O primeiro empacota, o segundo publica no servidor.
+**1. O WAR contém o executável do GlassFish?**  
+**Resposta:** não. O WAR contém a aplicação; GlassFish é um runtime separado que identifica componentes e oferece serviços Jakarta EE.
+
+**2. Preciso empacotar `@Stateless` em EAR?**  
+**Resposta:** não. Um WAR compatível pode conter EJBs, como ocorre no laboratório.
+
+**3. Preciso copiar `jakarta.jakartaee-api` para `WEB-INF/lib`?**  
+**Resposta:** normalmente não quando o servidor provê essa plataforma. Use Maven `scope=provided` para APIs disponibilizadas no runtime e evite duplicação de classes.
+
+**4. Quando usar EAR em vez de WAR?**  
+**Resposta:** quando há necessidade de agrupar módulos web, EJB e bibliotecas compartilhadas sob uma aplicação empresarial, por exemplo `portal.war` e `negocio-ejb.jar`. EAR não é sinônimo de modernidade.
+
+**5. O que `mvn package` faz que `asadmin deploy` não faz?**  
+**Resposta:** Maven compila/empacota um artefato; GlassFish implanta e inicializa a aplicação no contêiner. Um build com sucesso pode falhar no deploy por CDI, JTA ou recursos faltantes.
+
+**6. Onde o contêiner procura o DataSource JPA no laboratório?**  
+**Resposta:** pela referência JNDI `jdbc/EstudosDS` configurada no GlassFish e indicada em `persistence.xml`.
 
 ## Fontes oficiais
 

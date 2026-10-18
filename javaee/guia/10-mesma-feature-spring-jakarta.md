@@ -210,13 +210,31 @@ A diferença mais marcante aqui não está nas **regras de cadastro**. Está em 
 
 Os testes do laboratório cobrem JUnit, persistência JPA/H2 e smoke de inicialização; **fluxos funcionais de tela e regras transacionais em contêiner devem ser validados à parte**.
 
-## 9. Perguntas de síntese
+## 9. Perguntas de síntese com respostas
 
-- Se `@PostMapping` no Spring chama um método, qual elemento desempenha função parecida no JSF? **Action ligada à view + lifecycle FacesServlet**.
-- `@Stateless` é obrigatório quando há `@ApplicationScoped`? **Não**.
-- Onde encontro a configuração que liga JPA e DataSource no Jakarta EE? **persistence.xml + JNDI no servidor**.
-- O que muda de WAR para EAR? **WAR empacota uma aplicação web; EAR agrupa módulos empresariais**.
-- Spring e Jakarta EE podem acessar a mesma entidade JPA? **Sim, se usam as APIs/provider e infraestrutura compatíveis; a plataforma não determina o modelo de domínio**.
+**1. Qual é o paralelo entre `@PostMapping` Spring e JSF?**  
+**Resposta:** o método de action referenciado pelo componente JSF, acionado sob coordenação do `FacesServlet`. Não é correspondência exata: JSF também tem lifecycle e estado de componentes.
+
+**2. `@Stateless` é obrigatório para um `@ApplicationScoped`?**  
+**Resposta:** não. CDI e EJB têm contratos e ciclos de vida distintos. Um service CDI pode funcionar sem EJB.
+
+**3. Onde ligo JPA ao banco no GlassFish?**  
+**Resposta:** na persistence unit `persistence.xml` com `jta-data-source` e no recurso JNDI/DataSource configurado no servidor.
+
+**4. Qual a diferença entre WAR e EAR?**  
+**Resposta:** WAR empacota aplicação web; EAR pode agrupar WAR, módulos EJB e bibliotecas numa aplicação empresarial.
+
+**5. Spring e Jakarta podem usar as mesmas entidades JPA?**  
+**Resposta:** em geral, sim, quando versões/APIs/providers são compatíveis e as entidades respeitam a especificação; cada plataforma integra o contexto de persistência de sua maneira.
+
+**6. O service CDI sem `@Transactional` do laboratório está fora de transação?**  
+**Resposta:** não. A fachada EJB define `REQUIRED` e o service CDI executa dentro de T1 já ativa. CDI não abre outra transação por conta própria.
+
+**7. Posso remover a fachada EJB e colocar `@Transactional` no service CDI?**  
+**Resposta:** sim, se a operação não precisa de recursos próprios do EJB e a aplicação fornece integração Jakarta Transactions. Mas é uma **mudança de arquitetura e semântica** que exige testes de rollback e recursos.
+
+**8. Onde está o melhor lugar para a transação num fluxo Spring MVC?**  
+**Resposta:** normalmente no método do **caso de uso/service** que delimita a unidade de trabalho, e não no controller ou em cada chamada de repository.
 
 ## Próximos materiais
 

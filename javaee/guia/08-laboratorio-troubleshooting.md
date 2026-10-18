@@ -78,6 +78,20 @@ Crie um cliente sem pedido. Faça consulta usando `LEFT JOIN` e explique por que
 
 O botão de simulação chama a fachada EJB (`REQUIRED`), que chama auditoria (`REQUIRES_NEW`) e lança exceção. Inspecione no banco qual registro permaneceu após falha. **Não confunda emitir SQL com confirmar transação.**
 
+## 4.1 Respostas esperadas para as experiências A–E
+
+**A — Lifecycle:** o JSF passa por Restore View, Apply Request Values, Process Validations, Update Model Values, Invoke Application e Render Response. Um e-mail inválido pode interromper o fluxo antes da action.
+
+**B — Action/listener:** o listener reage ao evento; a action executa a operação de aplicação e pode indicar outcome de navegação ou `void`. Mesmo sem action, um postback JSF pode acontecer.
+
+**C — CDI:** o `@Inject` resolve uma interface. Se houver dois beans candidatos, use qualifier CDI para escolher a implementação de service. A correção desse conflito na versão atual deve ser conferida na branch/main e no PR #4.
+
+**D — JPA/LEFT JOIN:** um cliente sem pedidos permanece no resultado do LEFT JOIN, desde que filtros posteriores não o excluam. Compare número de SELECTs para identificar N+1.
+
+**E — EJB/JTA:** com T1 REQUIRED e auditoria T2 REQUIRES_NEW, uma falha que reverta T1 não reverte automaticamente T2 já confirmada. Verifique valores no banco, não apenas SQL nos logs.
+
+**Por que CDI Service sem `@Transactional` executa dentro de T1 no exercício E?** Porque é **o EJB da fachada** que abriu a transação e o service recebe a chamada dentro dela. Veja [duas opções de fronteira transacional](11-cdi-ejb-transacoes-sem-confusao.md).
+
 ## 5. Como executar testes
 
 ```bash

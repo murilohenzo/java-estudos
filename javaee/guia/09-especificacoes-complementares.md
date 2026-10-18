@@ -228,15 +228,31 @@ flowchart TB
 
 **Arquitetura típica moderna:** uma API Jakarta REST + CDI + JPA + JTA **pode existir sem JSF e sem EJB**. Em aplicações legadas, JSF e EJB aparecem muito porque eram escolhas arquiteturais e tecnológicas do período de construção.
 
-## 11. Perguntas para fixar
+## 11. Perguntas para fixar — com gabarito
 
-1. O que diferencia `FacesServlet` de um Servlet escrito à mão?
-2. Como criar endpoint REST sem utilizar `@RestController`?
-3. `@NotBlank` valida automaticamente qualquer chamada de método Java?
-4. `@RolesAllowed` substitui autenticação?
-5. JMS Topic tem as mesmas garantias de Kafka Topic?
-6. O que muda entre execução em ManagedExecutorService e `new Thread()`?
-7. Por que não é preciso usar todas essas especificações em um único WAR?
+**1. O que diferencia `FacesServlet` de um Servlet simples?**  
+**Resposta:** ambos usam infraestrutura Servlet, mas `FacesServlet` coordena o ciclo JSF, árvore de componentes, validação, binding e renderização; um Servlet escrito à mão executa lógica HTTP que você implementa diretamente.
+
+**2. Como criar um endpoint REST sem `@RestController`?**  
+**Resposta:** com Jakarta REST, usando `@Path`, `@GET`, `@Produces` e configuração adequada. `@RestController` pertence ao Spring MVC.
+
+**3. `@NotBlank` valida qualquer chamada automaticamente?**  
+**Resposta:** não. Precisa de uma integração com Jakarta Validation ou de uma chamada explícita ao validator. A anotação sozinha é apenas metadata.
+
+**4. `@RolesAllowed` implementa autenticação?**  
+**Resposta:** não. Autoriza acesso com base no principal e roles já conhecidos no contêiner, mas exige infraestrutura configurada de autenticação/identidade.
+
+**5. Um JMS Topic equivale a um Kafka Topic?**  
+**Resposta:** não. JMS define API e semânticas dependentes de provider; Kafka possui log particionado, offsets e grupos próprios.
+
+**6. Por que `ManagedExecutorService` é diferente de `new Thread()`?**  
+**Resposta:** o executor é gerenciado pelo contêiner e pode coordenar recursos/contextos; threads manuais não obtêm automaticamente os serviços e políticas do servidor.
+
+**7. Preciso usar JSF, EJB, REST e JMS dentro de todo WAR?**  
+**Resposta:** não. Jakarta EE é um conjunto de especificações combináveis conforme o problema; um REST + CDI + JPA pode funcionar sem EJB nem JSF.
+
+**8. Para fazer uma API REST transacional com CDI, preciso obrigatoriamente de EJB?**  
+**Resposta:** não. O caso de uso CDI pode usar `jakarta.transaction.Transactional` quando suportado no runtime e invocado pelo mecanismo gerenciado.
 
 ## Fontes oficiais
 

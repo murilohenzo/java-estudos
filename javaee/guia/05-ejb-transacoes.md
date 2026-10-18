@@ -273,13 +273,39 @@ Mecanismos transacionais gerenciados normalmente dependem de uma invocação que
 
 **Não confunda:** EJB, CDI e Spring possuem regras de interceptação específicas; evite generalizar todos os casos de self-invocation como uma única regra universal.
 
-## 10. Exercícios
+## 10. Exercícios com gabarito explicado
 
-1. Uma operação precisa obrigatoriamente participar de uma transação pré-existente. Qual atributo usar? **MANDATORY**.
-2. Uma operação de leitura não deve executar sob transação mesmo quando o chamador está em T1. **NOT_SUPPORTED**.
-3. Quero gravar uma auditoria persistente mesmo se a operação externa falhar. **REQUIRES_NEW** (com invocação e commit independentes), embora a decisão arquitetural exija cuidado.
-4. Tenho `@Transactional` em um método. Isso comprova que estou usando Spring? **Não:** verifique o pacote.
-5. Uma `IllegalStateException` não tratada na fachada EJB é capturada pela JSF. A transação já foi revertida? **O contêiner trata a exceção e os efeitos transacionais na fronteira EJB, conforme regras CMT; capturar depois não recupera T1.**
+**1. Preciso obrigatoriamente de uma transação já aberta. Qual atributo EJB?**  
+**Resposta:** `MANDATORY`. Com T1 participa dela; sem contexto transacional, a chamada falha.
+
+**2. Preciso executar sem transação mesmo quando o chamador está em T1.**  
+**Resposta:** `NOT_SUPPORTED` suspende T1 durante a chamada. Não confundir com `SUPPORTS`, que aproveitaria T1 se ela existisse.
+
+**3. Auditoria deve continuar registrada mesmo se o cadastro falhar depois. Qual atributo?**  
+**Resposta:** `REQUIRES_NEW` em uma **chamada EJB gerenciada**, criando T2 independente. O comportamento final exige commit real em T2, não apenas emissão de SQL.
+
+**4. Ver `@Transactional` prova que é Spring?**  
+**Resposta:** não. `jakarta.transaction.Transactional` pode ser usado num bean CDI sem EJB. Spring usa `org.springframework.transaction.annotation.Transactional`.
+
+**5. A fachada EJB lançou RuntimeException, e o JSF capturou depois. T1 confirma?**  
+**Resposta:** como exceção de sistema não tratada ao atravessar a fronteira EJB, normalmente marca rollback da transação. Capturar no JSF não desfaz o tratamento transacional realizado pelo contêiner.
+
+**6. Dois métodos `REQUIRED` implicam duas transações?**  
+**Resposta:** não. A chamada ao segundo participa de T1 se ela já existe.
+
+**7. Por que não colocar `REQUIRES_NEW` no repositório de cliente e no de pedido?**  
+**Resposta:** isso pode fragmentar o commit da operação e deixar alterações parciais quando uma etapa falha. Escolha o limite no caso de uso.
+
+**8. Qual a diferença principal entre CMT e BMT?**  
+**Resposta:** em CMT o contêiner define begin/commit/rollback segundo as regras do bean; em BMT o código gerencia diretamente a demarcação, respeitando as restrições de EJB.
+
+**9. Uma exception checked sempre causa rollback no EJB?**  
+**Resposta:** não. Application exceptions normalmente não causam rollback por padrão; revise `@ApplicationException(rollback=true)` e regras do contêiner.
+
+**10. EJB é necessário para todo service que escreve em banco?**  
+**Resposta:** não. Em CDI, `jakarta.transaction.Transactional(REQUIRED)` pode estabelecer uma fronteira de transação sem Enterprise Beans.
+
+Consulte o [guia decisório CDI/EJB/JTA](11-cdi-ejb-transacoes-sem-confusao.md) para diagramas dos dois desenhos possíveis.
 
 ## Fontes oficiais
 

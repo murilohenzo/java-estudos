@@ -160,20 +160,31 @@ Erros comuns: ID relativo diferente do esperado, validação em outro campo do f
 
 Navegação pode usar outcome de action (como `"lista?faces-redirect=true"`), navegação implícita e regras no `faces-config.xml`. Ao usar redirect, uma **nova requisição** será realizada. Em telas legadas, investigue a navegação e o escopo antes de corrigir sintomas de dados sumindo.
 
-## 8. Exercício guiado no repositório
+## 8. Perguntas do laboratório com respostas
 
-1. Localize `cliente.xhtml` e identifique os dois `h:form`.
-2. No `ClienteBean`, encontre `salvar()` e `antesDeSalvar()`.
-3. Informe em qual fase o bean recebe as propriedades submetidas.
-4. Retire `required` mentalmente: o que muda no lifecycle?
-5. Explique por que `process="@this"` não processa automaticamente todos os inputs.
+**1. Em `cliente.xhtml`, qual é o papel dos dois `h:form`?**  
+**Resposta:** cada um agrupa componentes para submissão e processamento JSF. Um representa cadastro e o outro consulta/pedidos, com seus próprios IDs e efeitos de validação.
 
-### Checklist de entrevista
+**2. `antesDeSalvar()` e `salvar()` têm a mesma finalidade?**  
+**Resposta:** não. `antesDeSalvar()` atua como listener do evento do botão; `salvar()` é a action que coordena o caso de uso e pode decidir navegação.
 
-- Consigo citar as seis fases na ordem?
-- Sei diferenciar action, listener, validation e update do model?
-- Sei explicar o que é JSF server-side versus React/Angular?
-- Sei encontrar `FacesServlet` no `web.xml`?
+**3. Em qual fase os setters do bean normalmente recebem os valores válidos?**  
+**Resposta:** `Update Model Values`, após conversão/validação. `Apply Request Values` decodifica valores nos componentes, mas normalmente ainda não atualiza os campos Java.
+
+**4. Retirar `required="true"` elimina todas as validações?**  
+**Resposta:** não. Apenas deixa de exigir preenchimento pelo componente; converters, outros validators e verificações de negócio ainda podem rejeitar valores.
+
+**5. Por que `process="@this"` não processa todo o formulário?**  
+**Resposta:** essa expressão limita o processamento parcial ao componente que originou a ação, salvo outras regras/configurações de execução.
+
+**6. Por que um botão sem `action` não é automaticamente um erro?**  
+**Resposta:** o componente ainda pode produzir postback e executar processamento do ciclo de vida; só não há um método de action configurado.
+
+### Checklist de entrevista — respostas rápidas
+
+- **Fases:** Restore View → Apply Request Values → Process Validations → Update Model Values → Invoke Application → Render Response.
+- **JSF versus React/Angular:** JSF gerencia árvore de componentes no servidor; SPAs geralmente gerenciam estado de UI no cliente.
+- **FacesServlet:** procure o mapeamento no `web.xml` ou na configuração por anotações/auto-registro do runtime.
 
 ## Fontes oficiais
 
