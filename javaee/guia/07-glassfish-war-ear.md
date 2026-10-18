@@ -254,7 +254,7 @@ docker compose up --build
 
 ## Fontes oficiais
 
-- [Jakarta EE Tutorial — Packaging](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/packaging/packaging.html)
+- [Jakarta EE Tutorial — Packaging](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/platform/packaging/packaging.html)
 - [Jakarta EE Tutorial](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/)
 - [Apache Maven WAR Plugin](https://maven.apache.org/plugins/maven-war-plugin/)
 - [Apache Maven EAR Plugin](https://maven.apache.org/plugins/maven-ear-plugin/)

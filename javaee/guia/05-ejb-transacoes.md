@@ -272,5 +272,5 @@ Mecanismos transacionais gerenciados normalmente dependem de uma invocação que
 
 - [Jakarta Enterprise Beans](https://jakarta.ee/specifications/enterprise-beans/)
 - [Jakarta Transactions](https://jakarta.ee/specifications/transactions/)
-- [Jakarta EE Tutorial — Enterprise Beans](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/ejb/ejb-intro/ejb-intro.html)
+- [Jakarta EE Tutorial — Enterprise Beans](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/entbeans/ejb-intro/ejb-intro.html)
 - [Spring Transaction Management](https://docs.spring.io/spring-framework/reference/data-access/transaction.html)
