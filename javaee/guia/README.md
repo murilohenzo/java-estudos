@@ -16,26 +16,25 @@
 | 8 | [Laboratório: localização do código e exercícios](08-laboratorio-troubleshooting.md) | Seguir um fluxo real no repositório, reproduzir e investigar falhas |
 | 9 | [Especificações complementares](09-especificacoes-complementares.md) | Servlet, REST, Validation, Security, JMS, JSON-B/P, WebSocket, Concurrency e Batch |
 | 10 | [Mesma feature: Spring e Jakarta EE](10-mesma-feature-spring-jakarta.md) | Comparação lado a lado de MVC, CDI, EJB, transação e persistência |
+| **11** | **[CDI × EJB × JTA: quando escolher e onde colocar a transação](11-cdi-ejb-transacoes-sem-confusao.md)** | **Comece aqui se estiver confundindo @Inject, @Stateless, @Transactional e @TransactionAttribute** |
 
-## Mapa da tecnologia
+## Duas arquiteturas válidas — escolha UMA fronteira transacional
+
+A documentação anterior apresentava um EJB no fluxo como se ele fosse obrigatório. **Não é**: o Java EE/Jakarta EE permite trabalhar com CDI, JPA e JTA sem declarar um EJB. A escolha está detalhada no [capítulo decisório](11-cdi-ejb-transacoes-sem-confusao.md).
 
 ```mermaid
-flowchart TD
-    A["Browser"] --> B["HTTP / Servlet container"]
-    B --> C["FacesServlet / JSF"]
-    C --> D["@Named + @ViewScoped Controller"]
-    D --> E["EJB / fronteira transacional"]
-    E --> F["Serviço de aplicação CDI"]
-    F --> G["Repository (interface)"]
-    G --> H["JPA EntityManager"]
-    H --> I["JDBC DataSource / Pool"]
-    I --> J[("PostgreSQL")]
-    K["GlassFish / Jakarta EE runtime"] -. gerencia .-> B
-    K -. gerencia .-> E
-    K -. gerencia .-> H
+flowchart TB
+  VIEW["View JSF ou API REST"] --> D{"Preciso de serviços específicos de EJB?"}
+  D -->|Não| CDI["Service CDI @ApplicationScoped + @Transactional"]
+  D -->|Sim| EJB["Fachada EJB @Stateless + CMT REQUIRED"]
+  EJB --> RULE["Service CDI (regras, sem nova transação)"]
+  CDI --> REP["Repository (interface)"]
+  RULE --> REP
+  REP --> JPA["Adaptador JPA / EntityManager"]
+  JPA --> DB[("Banco")]
 ```
 
-Esse é **o fluxo escolhido para o laboratório**, não uma imposição da plataforma: Jakarta EE também permite aplicações REST sem JSF, serviços CDI sem EJB e outros estilos de arquitetura.
+**Leitura rápida:** CDI gerencia beans/injeção; EJB oferece recursos específicos de Enterprise Beans; **JTA e o mecanismo de interceptação/CMT coordenam transações**. O laboratório implementa **o caminho EJB**, mas isso não é um requisito universal da plataforma.
 
 ## Material já existente e preservado
 

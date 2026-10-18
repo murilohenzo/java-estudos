@@ -224,14 +224,28 @@ O [persistence.xml](../laboratorio/src/main/resources/META-INF/persistence.xml) 
 
 **Comparativo Spring Boot:** frequentemente configura-se `spring.datasource.*` e `spring.jpa.*` em `application.yml`, com DataSource e `JpaTransactionManager` (ou outro TransactionManager) no contexto Spring. Jakarta EE delega essas ligações ao servidor e à configuração JTA/JNDI.
 
-## 9. Exercícios práticos
+## 9. Exercícios práticos com respostas
 
-1. Qual classe implementa `ClienteRepository` no laboratório?
-2. Por que um `@Id` no getter de `ClienteExterno` é válido?
-3. Qual SQL preserva clientes sem pedidos?
-4. O que diferencia `flush` e `commit`?
-5. Quais consultas podem disparar N+1 e como medir?
-6. O teste H2/JPA garante idêntico comportamento no PostgreSQL/EclipseLink? **Não.**
+**1. Qual classe implementa `ClienteRepository` no laboratório?**  
+**Resposta:** `JpaClienteRepository`, no pacote de adaptadores de persistência. O service conhece a interface, não essa classe concreta.
+
+**2. Por que `@Id` no getter de `ClienteExterno` é válido?**  
+**Resposta:** a entidade usa **PROPERTY access** e mapeia seus atributos pelos getters. `@Column` no getter não é um erro nesse modelo.
+
+**3. Qual SQL preserva clientes sem pedidos?**  
+**Resposta:** `SELECT c.* FROM clientes c LEFT JOIN pedidos p ON p.cliente_id=c.id`. Um filtro no `WHERE` sobre colunas da direita pode excluir as linhas sem pedido.
+
+**4. O que diferencia `flush` e `commit`?**  
+**Resposta:** `flush` sincroniza operações pendentes com o banco dentro da transação; `commit` confirma a transação. Um INSERT após flush ainda pode ser revertido.
+
+**5. O que provoca N+1 e como medir?**  
+**Resposta:** carregamento repetido de associações após a consulta principal, como uma consulta por cliente para buscar pedidos. Inspecione logs SQL, métricas de query e um caso reproduzível; teste `JOIN FETCH`, DTO ou batch fetching conforme o contexto.
+
+**6. Testes H2/Hibernate garantem mesmo comportamento que GlassFish/PostgreSQL/EclipseLink?**  
+**Resposta:** não. Cobrem um contrato e consultas básicas, mas diferenças de dialeto, provider, JTA e banco precisam ser verificadas em integração real.
+
+**7. O `EntityManager` decide quando uma transação de negócio começa?**  
+**Resposta:** não, quando ele participa do contexto JTA gerenciado. No laboratório, a fachada EJB estabelece T1 e o repositório usa o EntityManager dentro dela. Também seria possível um service CDI com `jakarta.transaction.Transactional`.
 
 ## Fontes oficiais
 

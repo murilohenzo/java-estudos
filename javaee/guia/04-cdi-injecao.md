@@ -2,6 +2,26 @@
 
 [← Índice](README.md) · [← JSF](03-jsf-primefaces.md) · [EJB →](05-ejb-transacoes.md)
 
+## Antes de começar: CDI não é EJB e não significa transação
+
+**CDI** oferece descoberta, dependências, contextos e interceptores. **EJB** é outro modelo de componente do contêiner. Para um service de negócio comum, `@ApplicationScoped` pode ser suficiente se não há operação atômica a demarcar.
+
+Quando precisa de transação, a escolha mais direta **sem EJB** é `jakarta.transaction.Transactional` no caso de uso gerenciado CDI:
+
+```java
+@ApplicationScoped
+public class CadastroService {
+    @Transactional(Transactional.TxType.REQUIRED)
+    public void cadastrar(NovoCliente dados) {
+        // Chama repositórios: mesmo contexto T1
+    }
+}
+```
+
+**No laboratório**, a transação é definida de outra maneira: a fachada `@Stateless` EJB usa CMT `REQUIRED` e chama um service CDI **sem `@Transactional`**. Os dois desenhos são válidos; não os junte automaticamente.
+
+Leia a [decisão CDI × EJB × JTA](11-cdi-ejb-transacoes-sem-confusao.md) antes dos detalhes de `@Inject`.
+
 ## 1. Por que injeção de dependência?
 
 **Explicação simples:** imagine que `ClienteService` precisa salvar um cliente. Ele não deveria criar manualmente um objeto especializado em banco de dados; deve receber alguém capaz de **salvar clientes**, por meio de uma interface.
@@ -161,13 +181,33 @@ No deploy GlassFish, `ClienteUseCase` tinha múltiplos beans elegíveis: o servi
 
 **Como diagnosticar:** leia a mensagem do Weld, identifique **tipo**, **qualifiers requeridos** e **beans candidatos**. Não instancie com `new` para “resolver”, pois isso remove o objeto do gerenciamento que deveria aplicar transações e escopos.
 
-## 9. Fixação
+## 9. Perguntas com respostas comentadas
 
-1. Por que injeção por construtor ajuda a testar um serviço?
-2. O que muda entre injetar interface e injetar classe concreta?
-3. Se dois beans implementam `Notificador`, como selecionar um?
-4. Qual o risco de guardar ID de usuário em `@ApplicationScoped`?
-5. O que o `@Produces` oferece no caso de EntityManager?
+**1. Por que injeção por construtor melhora os testes?**  
+**Resposta:** torna dependências explícitas e permite fornecer implementações fake/mock sem iniciar um servidor. A regra fica menos acoplada ao ciclo do contêiner.
+
+**2. Injetar interface e classe concreta é a mesma coisa?**  
+**Resposta:** não. Injetar `ClienteRepository` protege o service contra mudanças no adaptador JPA, respeitando DIP; injetar `JpaClienteRepository` acopla a camada de negócio à tecnologia.
+
+**3. Dois beans implementam `Notificador`. O que faço?**  
+**Resposta:** defino e aplico um qualifier CDI no bean e no ponto de injeção, ou faço outra configuração de resolução válida. Sem desambiguação, a aplicação pode falhar no deployment.
+
+**4. Posso guardar o ID do usuário corrente em `@ApplicationScoped`?**  
+**Resposta:** não é adequado: o bean é compartilhado no contexto de aplicação e pode expor estado de um usuário a outros. Prefira um contexto individual apropriado e evite estado mutável compartilhado.
+
+**5. Para que serve `@Produces` com `EntityManager`?**  
+**Resposta:** oferece o recurso gerenciado à resolução CDI, permitindo recebê-lo no construtor do repositório. Isso não significa que o EntityManager seja thread-safe ou precise ser criado manualmente.
+
+**6. `@ApplicationScoped` abre uma transação?**  
+**Resposta:** não. Ele controla contexto de vida. Para transação declarativa em CDI, use `jakarta.transaction.Transactional` no método elegível; no EJB, utilize CMT.
+
+**7. Se o projeto precisa de transações, ele obrigatoriamente precisa de EJB?**  
+**Resposta:** não. CDI + `jakarta.transaction.Transactional` é suficiente para muitos casos. Escolha EJB se precisar de capacidades específicas ou se for o padrão do sistema legado.
+
+**8. Como resolver a ambiguidade `ClienteUseCase` da fachada EJB sem violar DIP?**  
+**Resposta:** use um qualifier que identifique o bean de service desejado, mantendo a **interface** no campo injetado; não injete a classe concreta por conveniência.
+
+Para exemplos de começo/commit e impacto dos atributos, veja [CDI × EJB × JTA](11-cdi-ejb-transacoes-sem-confusao.md).
 
 ## Fontes oficiais
 

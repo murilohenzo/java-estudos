@@ -79,6 +79,16 @@ public class ClienteService {
 
 O primeiro contêiner é o **Spring IoC**; o segundo, **CDI**. Ambos podem injetar abstrações, mas descoberta de componentes, proxies, escopos e integrações devem ser estudados separadamente.
 
+## 3.1 O `@Service` do Spring não obriga usar `@Stateless` no Java EE
+
+Em Spring, um `@Service` geralmente é um bean do contêiner Spring; **ele não é automaticamente transacional**. Em Jakarta EE, o paralelo para um serviço de aplicação comum é um bean CDI `@ApplicationScoped`, que **também não se torna transacional só por existir**.
+
+Duas opções distintas:
+- **CDI + `jakarta.transaction.Transactional`:** caso de uso abre/participa da transação via interceptor, sem EJB.
+- **EJB + CMT `@TransactionAttribute`:** fachada EJB é a fronteira transacional; pode delegar regras a um service CDI.
+
+Veja [quando usar CDI, EJB e JTA](11-cdi-ejb-transacoes-sem-confusao.md) antes de copiar anotações.
+
 ## 4. O que o GlassFish entrega sem o aplicativo implementar?
 
 No laboratório, o servidor disponibiliza:
