@@ -29,6 +29,7 @@ public interface ClienteRepositorySpring extends JpaRepository<Cliente, Long> {}
 @ApplicationScoped
 public class JpaClienteRepository implements ClienteRepository {
     private final EntityManager em;
+    protected JpaClienteRepository() { this.em = null; } // proxy CDI
     @Inject
     public JpaClienteRepository(EntityManager em) { this.em = em; }
     public Cliente salvar(Cliente cliente) {

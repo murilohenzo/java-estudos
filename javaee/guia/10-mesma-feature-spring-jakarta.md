@@ -119,6 +119,7 @@ public class ClienteFacadeEJB implements ClienteBoundary {
 @ApplicationScoped
 public class ClienteApplicationService implements ClienteUseCase {
     private final ClienteRepository clientes;
+    protected ClienteApplicationService() { this.clientes = null; } // proxy CDI
     @Inject
     public ClienteApplicationService(ClienteRepository clientes) {
         this.clientes = clientes;
@@ -135,6 +136,7 @@ public class ClienteApplicationService implements ClienteUseCase {
 @ApplicationScoped
 public class JpaClienteRepository implements ClienteRepository {
     private final EntityManager em;
+    protected JpaClienteRepository() { this.em = null; } // proxy CDI
     @Inject
     public JpaClienteRepository(EntityManager em) { this.em = em; }
     public Cliente salvar(Cliente cliente) { em.persist(cliente); return cliente; }

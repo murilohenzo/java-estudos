@@ -68,6 +68,7 @@ CDI:
 @ApplicationScoped
 public class ClienteService {
     private final ClienteRepository repository;
+    protected ClienteService() { this.repository = null; } // proxy CDI
 
     @Inject
     public ClienteService(ClienteRepository repository) {

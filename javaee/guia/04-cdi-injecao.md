@@ -18,6 +18,7 @@ Isso acopla o serviço à implementação. Com **CDI**:
 @ApplicationScoped
 class ClienteService {
     private final ClienteRepository repo;
+    protected ClienteService() { this.repo = null; } // proxy CDI
 
     @Inject
     ClienteService(ClienteRepository repo) {
