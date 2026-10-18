@@ -1,0 +1,175 @@
+# 04 — CDI: a cola que conecta as classes Java
+
+[← Índice](README.md) · [← JSF](03-jsf-primefaces.md) · [EJB →](05-ejb-transacoes.md)
+
+## 1. Por que injeção de dependência?
+
+**Explicação simples:** imagine que `ClienteService` precisa salvar um cliente. Ele não deveria criar manualmente um objeto especializado em banco de dados; deve receber alguém capaz de **salvar clientes**, por meio de uma interface.
+
+Sem inversão de dependência:
+```java
+class ClienteService {
+    private final JpaClienteRepository repo = new JpaClienteRepository();
+}
+```
+
+Isso acopla o serviço à implementação. Com **CDI**:
+```java
+@ApplicationScoped
+class ClienteService {
+    private final ClienteRepository repo;
+
+    @Inject
+    ClienteService(ClienteRepository repo) {
+        this.repo = repo;
+    }
+}
+```
+
+O contêiner resolve o bean; a regra de negócio usa o **contrato** `ClienteRepository`.
+
+Comparativo Spring:
+```java
+@Service
+class ClienteService {
+    private final ClienteRepository repo;
+    ClienteService(ClienteRepository repo) { this.repo = repo; }
+}
+```
+
+Em Spring com um único construtor, a anotação `@Autowired` pode ser omitida. Em CDI é recomendável usar `@Inject` para identificar o construtor. O princípio de design é semelhante, mas são contêineres diferentes.
+
+## 2. IoC, DI, CDI e DIP são conceitos diferentes
+
+- **IoC (Inversion of Control):** objetos não comandam todo o processo de construção e ciclo de vida; o framework/contêiner assume o controle de certos pontos.
+- **DI (Dependency Injection):** técnica de receber dependências do exterior.
+- **CDI (Contexts and Dependency Injection):** especificação com resolução, contextualização, eventos, producers e interceptores.
+- **DIP (Dependency Inversion Principle):** regra de arquitetura: alto nível e baixo nível devem depender de abstrações apropriadas.
+
+É possível usar DI por construtor sem seguir DIP (por exemplo, injetando diretamente `JpaClienteRepository`). Para DIP, injete a **interface** correta.
+
+## 3. Ciclo de vida e escopos
+
+```java
+@ApplicationScoped
+class CalculadoraTaxas {
+    public BigDecimal taxaPadrao() { return new BigDecimal("0.02"); }
+}
+```
+
+`@ApplicationScoped` cria um bean contextual compartilhado no contexto da aplicação. CDI normalmente usa um **client proxy** para scopes normais. **Não confunda com Singleton GoF** ou com `@Singleton` EJB.
+
+Em **Spring**, o escopo padrão é `singleton` por ApplicationContext; o CDI `@Dependent` é o escopo padrão de beans sem scope explícito (nas condições de descoberta aplicáveis). A nomenclatura e o ciclo de vida **não são equivalentes**.
+
+## 4. Como o CDI sabe qual implementação escolher?
+
+```java
+public interface Notificador {
+    void informar(String mensagem);
+}
+```
+
+```java
+@Qualifier
+@Retention(RUNTIME)
+@Target({TYPE, FIELD, PARAMETER, METHOD})
+public @interface Operacional {}
+```
+
+```java
+@Operacional
+@ApplicationScoped
+class NotificadorConsole implements Notificador {
+    public void informar(String texto) { System.out.println(texto); }
+}
+```
+
+```java
+@Inject
+public ClienteService(@Operacional Notificador notificador) {
+    this.notificador = notificador;
+}
+```
+
+**Por que o qualifier é necessário?** Quando há mais de uma implementação elegível do mesmo contrato, o CDI pode falhar por ambiguidade (`WELD-001409`). O qualifier define a escolha sem depender do nome de uma classe concreta.
+
+**Spring equivalente:** `@Qualifier("notificadorConsole")` ou uma anotação qualifier customizada. **Não copie automaticamente regras de resolução do Spring para o CDI.**
+
+## 5. Constructor injection x proxy x recursos do servidor
+
+O construtor com `@Inject` é preferível no **núcleo de aplicação** porque deixa dependências explícitas e facilita testes com mocks.
+
+Alguns componentes exigem regras adicionais:
+- **JPA Entity:** precisa de construtor sem argumentos com visibilidade adequada.
+- **EJB Session Bean:** contêiner instancia usando construtor público sem argumentos; dependências são tradicionalmente injetadas por `@EJB` ou `@Inject` em pontos gerenciados.
+- **Bean de escopo normal:** precisa ser proxyável; construtores sem argumentos apropriados podem fazer parte do projeto.
+- **EntityManager `@PersistenceContext`:** recurso especial fornecido pelo contêiner; pode ser exposto a outros beans por `@Produces`.
+
+Assim, **não é correto afirmar que 100% das classes do Java EE devem ter somente construtor parametrizado**.
+
+## 6. `@Produces`: quando a dependência não é um bean comum
+
+```java
+@Dependent
+class PersistenceResources {
+    @Produces
+    @PersistenceContext(unitName = "estudosPU")
+    private EntityManager entityManager;
+}
+```
+
+O produtor oferece um `EntityManager` ao CDI; os repositórios podem ter construtores `@Inject` que recebem esse recurso. Isso **não transforma** `EntityManager` em objeto seguro para uso arbitrário entre threads; o contexto de persistência é gerenciado pelo servidor.
+
+**Spring paralelo:** configuração `@Bean` em uma classe `@Configuration` oferece um objeto ao contêiner; o mecanismo e as regras de lifecycle são diferentes.
+
+## 7. Eventos CDI e interceptores
+
+Eventos desacoplam componentes na mesma aplicação:
+```java
+@Inject Event<ClienteCriado> eventos;
+
+public void cadastrar(NovoCliente entrada) {
+    // ... persistir ...
+    eventos.fire(new ClienteCriado(entrada.email()));
+}
+```
+
+```java
+public void aoCriar(@Observes ClienteCriado evento) {
+    // notificação / auditoria local
+}
+```
+
+**Cuidado:** evento CDI síncrono não equivale a Kafka, não garante persistência de mensagens, nem substitui uma transação distribuída.
+
+Interceptors permitem aplicar comportamento transversal:
+```java
+@AroundInvoke
+Object medir(InvocationContext ctx) throws Exception {
+    long inicio = System.nanoTime();
+    try { return ctx.proceed(); }
+    finally { metricas.registrar(System.nanoTime() - inicio); }
+}
+```
+
+A classe interceptora precisa de binding e configuração/ativação conforme CDI; este fragmento mostra somente o método. Comparativo com Spring: AOP por proxies é um conceito similar, com regras de interceptação distintas.
+
+## 8. Problema real reproduzido no laboratório
+
+No deploy GlassFish, `ClienteUseCase` tinha múltiplos beans elegíveis: o serviço CDI e a fachada EJB que implementava uma subinterface. O contêiner acusou **ambiguous dependencies**. A correção é explicitar o candidato desejado com qualifier na implementação de caso de uso e no ponto de injeção da fachada.
+
+**Como diagnosticar:** leia a mensagem do Weld, identifique **tipo**, **qualifiers requeridos** e **beans candidatos**. Não instancie com `new` para “resolver”, pois isso remove o objeto do gerenciamento que deveria aplicar transações e escopos.
+
+## 9. Fixação
+
+1. Por que injeção por construtor ajuda a testar um serviço?
+2. O que muda entre injetar interface e injetar classe concreta?
+3. Se dois beans implementam `Notificador`, como selecionar um?
+4. Qual o risco de guardar ID de usuário em `@ApplicationScoped`?
+5. O que o `@Produces` oferece no caso de EntityManager?
+
+## Fontes oficiais
+
+- [Jakarta CDI](https://jakarta.ee/specifications/cdi/)
+- [Jakarta Inject](https://jakarta.ee/specifications/dependency-injection/)
+- [Spring — Dependency Injection](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html)
