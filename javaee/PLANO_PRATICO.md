@@ -1,8 +1,10 @@
 # Plano prático — Laboratório Java EE / Jakarta EE
 
+**Trilha conceitual:** [capítulos Spring × Jakarta EE](./guia/README.md) → [fluxo MVC](./guia/02-mvc-fluxo-requisicao.md) → [WAR e EAR](./guia/07-glassfish-war-ear.md).
+
 **Situação atual:** o código e o ambiente GlassFish/PostgreSQL com Docker Compose estão versionados em [laboratorio/](./laboratorio/README.md). Os itens abaixo continuam como roteiro de validação e aprofundamento: a existência da implementação não equivale a testes E2E aprovados.
 
-Este era o **plano inicial de exercícios**. Os artefatos principais agora existem, mas a execução em contêiner ainda precisa ser confirmada. Consulte o [guia principal](./GUIA_ESTUDOS_PROVA_PORTUGAL.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
+Este era o **plano inicial de exercícios**. Os artefatos principais agora existem, mas a execução em contêiner ainda precisa ser confirmada. Consulte o [guia principal](./GUIA_ESTUDOS.md) para a teoria e o simulado. O objetivo é transformar as questões da prova em tarefas reproduzíveis e verificáveis.
 
 ## Caso de uso
 

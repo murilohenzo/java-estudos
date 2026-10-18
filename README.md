@@ -46,8 +46,9 @@ java-estudos/
 ├── javaee/                      # Java EE / Jakarta EE: JSF, CDI, EJB, JPA e prova técnica
 │   ├── laboratorio/             #   MVC + GlassFish/PostgreSQL (Docker Compose)
 │   ├── README.md                #   Trilha de navegação e referências
-│   ├── GUIA_ESTUDOS_PROVA_PORTUGAL.md  # Teoria, simulado e gabarito
-│   └── PLANO_PRATICO.md         #   Roteiro de laboratório (planejado)
+│   ├── guia/                    #   Trilha didática Spring vs Jakarta EE (10 capítulos)
+│   ├── GUIA_ESTUDOS.md          #   Simulado da prova e gabarito
+│   └── PLANO_PRATICO.md         #   Laboratório: roteiro de validação
 │
 ├── orm/                          # ORM — Pure JPA · Hibernate Native · JDBI 3 · HikariCP · JDK 21
 │
@@ -98,7 +99,7 @@ java-estudos/
 
 | Módulo | Tópico | Conceitos-chave |
 |--------|--------|-----------------|
-| [javaee](./javaee/README.md) | Java EE / Jakarta EE | [Guia da prova Portugal](./javaee/GUIA_ESTUDOS_PROVA_PORTUGAL.md) · [Tutorial didático](./javaee/laboratorio/docs/01-glossario-jakarta-ee-dummy.md) · [Laboratório com GlassFish](./javaee/laboratorio/README.md) |
+| [javaee](./javaee/README.md) | Java EE / Jakarta EE | [Trilha Spring × Jakarta EE: MVC, JSF, CDI, EJB, JPA e WAR/EAR](./javaee/guia/README.md) · [Simulado](./javaee/GUIA_ESTUDOS.md) · [GlassFish](./javaee/laboratorio/README.md) |
 
 ### Java LTS e Engenharia
 

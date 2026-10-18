@@ -14,6 +14,8 @@
 | 6 | [JPA, Hibernate, EclipseLink, JDBC e SQL](06-persistencia-jpa-jdbc.md) | EntityManager, ID, relacionamentos, N+1, DataSource e JTA |
 | 7 | [Servidor de aplicação, WAR, JAR e EAR](07-glassfish-war-ear.md) | Como o Maven empacota, o GlassFish implanta e o contêiner inicializa os componentes |
 | 8 | [Laboratório: localização do código e exercícios](08-laboratorio-troubleshooting.md) | Seguir um fluxo real no repositório, reproduzir e investigar falhas |
+| 9 | [Especificações complementares](09-especificacoes-complementares.md) | Servlet, REST, Validation, Security, JMS, JSON-B/P, WebSocket, Concurrency e Batch |
+| 10 | [Mesma feature: Spring e Jakarta EE](10-mesma-feature-spring-jakarta.md) | Comparação lado a lado de MVC, CDI, EJB, transação e persistência |
 
 ## Mapa da tecnologia
 

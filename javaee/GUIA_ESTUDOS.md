@@ -1,5 +1,7 @@
 # Guia de estudos — Java EE / Jakarta EE
 
+> **Nova trilha organizada:** [Começar pelo comparativo Spring × Jakarta EE](./guia/README.md), [MVC](./guia/02-mvc-fluxo-requisicao.md), [EJB e transações](./guia/05-ejb-transacoes.md) e [empacotamento WAR/EAR](./guia/07-glassfish-war-ear.md). Este arquivo continua dedicado às perguntas relatadas da prova, ao simulado e ao gabarito, preservando seu conteúdo original.
+
 > **Escopo:** JSF / PrimeFaces, Managed Beans, CDI, EJB, JPA / Hibernate, SQL / JOIN, JDBC, transações, GlassFish, Swing, SVN e análise de sistemas legados.  
 > **Formato:** teoria aplicada + leitura de código + pegadinhas + questões de prova + gabarito comentado.  
 > **Base:** anotações de estudo previamente fornecidas e imagem `PROVA-PORTUGAL.txt`, com perguntas relatadas por uma pessoa que realizou uma prova.  
